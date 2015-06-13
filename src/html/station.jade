@@ -1,0 +1,25 @@
+extends layout.jade
+block title
+	| {{station.name}}
+block breadcrumb
+	li
+		a(href="/") Offline Tube
+	li
+		a(href="network/{{network.key}}") {{network.name}}
+	li(ng-if="line")
+		a(href="network/{{network.key}}/line/{{line.key}}") {{line.name}}
+	li.active
+		| {{station.name}}
+block content
+	p
+		a(href="network/{{network.key}}/plan?from={{station.key}}") Plan a route to or from {{station.name}}
+	p Served by:
+	ul.lines
+		li(ng-repeat="line in lines | orderBy:'name'")
+			a(href="network/{{network.key}}/line/{{line.key}}")
+				span.line-icon(ng-style="{'background-color': '{{line.color}}', 'color': '{{line.textColor}}'}") &#x1F687;
+				|  {{line.name}}
+	p Routes:
+	ul.routes
+		li(ng-repeat="route in routes | orderBy:'name'")
+			a(href="network/{{network.key}}/route/{{route.key}}") {{route.name}}

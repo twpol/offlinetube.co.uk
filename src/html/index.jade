@@ -1,0 +1,11 @@
+extends layout.jade
+block title
+	| Offline Tube
+block breadcrumb
+	li.active
+		| Offline Tube
+block content
+	p Available tube (underground) networks:
+	ul.networks
+		li(ng-repeat="network in networks")
+			a(href="network/{{network.key}}") {{network.name}}

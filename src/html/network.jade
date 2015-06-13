@@ -1,0 +1,21 @@
+extends layout.jade
+block title
+	| {{network.name}}
+block breadcrumb
+	li
+		a(href="/") Offline Tube
+	li.active
+		| {{network.name}}
+block content
+	p
+		a(href="network/{{network.key}}/plan") Plan a route
+	p Lines:
+	ul.lines
+		li(ng-repeat="line in lines | orderBy:'name'")
+			a(href="network/{{network.key}}/line/{{line.key}}")
+				span.line-icon(ng-style="{'background-color': '{{line.color}}', 'color': '{{line.textColor}}'}") &#x1F687;
+				|  {{line.name}}
+	p Stations:
+	ul.stations
+		li(ng-repeat="station in stations | orderBy:'name'")
+			a(href="network/{{network.key}}/station/{{station.key}}") {{station.name}}

@@ -1,0 +1,19 @@
+extends layout.jade
+block title
+	| {{line.name}}
+block breadcrumb
+	li
+		a(href="/") Offline Tube
+	li
+		a(href="network/{{network.key}}") {{network.name}}
+	li.active
+		| {{line.name}}
+block content
+	p Stations:
+	ul.stations
+		li(ng-repeat="station in stations | orderBy:'name'")
+			a(href="network/{{network.key}}/line/{{line.key}}/station/{{station.key}}") {{station.name}}
+	p Routes:
+	ul.routes
+		li(ng-repeat="route in routes | orderBy:'name'")
+			a(href="network/{{network.key}}/route/{{route.key}}") {{route.name}}

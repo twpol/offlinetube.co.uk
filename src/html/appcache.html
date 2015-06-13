@@ -1,0 +1,9 @@
+<html manifest="appcache.manifest">
+	<head>
+		<script>
+			applicationCache.addEventListener('updateready', function () {
+				parent.postMessage('application-cache-update-ready', location.origin);
+			}, false);
+		</script>
+	</head>
+</html>

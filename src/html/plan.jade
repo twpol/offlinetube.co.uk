@@ -1,0 +1,56 @@
+extends layout.jade
+block title
+	| {{network.name}}
+block breadcrumb
+	li
+		a(href="/") Offline Tube
+	li
+		a(href="/network/{{network.key}}") {{network.name}}
+	li.active
+		| Plan a route
+block content
+	form.plan-a-route(method="GET" action="{{planUrl}}")
+		div
+			label.control-label From
+			div
+				select.form-control(name="from")
+					option(ng-repeat="station in stations | orderBy:'name'" value="{{station.key}}" ng-selected="station.key === from.key") {{station.name}}
+		div
+			label.control-label To
+			div
+				select.form-control(name="to")
+					option(ng-repeat="station in stations | orderBy:'name'" value="{{station.key}}" ng-selected="station.key === to.key") {{station.name}}
+		div.action
+			div
+				input.form-control(type="submit" value="Plan")
+	ul.paths
+		li(ng-repeat="path in paths | orderBy:'minutes'")
+			ol.segments
+				li.summary
+					| {{path.minutes}} minutes: 
+					ng-pluralize(count="path.changes" when="{'0': 'No changes', '1': '1 change', 'other': '{{path.changes}} changes'}")
+					|  and 
+					span(ng-show="path.stops[0] !== path.stops[1]") {{path.stops[0]}} - 
+					ng-pluralize(count="path.stops[1]" when="{'1': '1 stop', 'other': '{{path.stops[1]}} stops'}") 
+				li(ng-repeat="segment in path.segments")
+					| At 
+					strong {{segment.station}}
+					|  take the
+					ul.routes
+						li(ng-repeat="route in segment.routes")
+							span.line-icon(ng-style="{'background-color': '{{route.color}}', 'color': '{{route.textColor}}'}") &#x1F687;
+							span.line-name  {{route.line}}
+							span.instruction-long
+								|  {{route.direction}} for 
+								strong
+									| {{route.stops}} 
+									ng-pluralize(count="route.stops" when="{'1': 'stop', 'other': 'stops'}")
+								|  towards 
+							span.instruction-short
+								span.line-icon {{route.directionShort}}
+								strong.line-icon {{route.stops}}
+								span.line-icon &#x1F689;
+							| {{route.to}}
+				li
+					| Arrive at 
+					strong {{path.station}}
