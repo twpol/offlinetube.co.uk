@@ -169,8 +169,8 @@ module.exports = function (grunt) {
 			manifest: {
 				options: {
 					basePath: '../',
-					network: ['ws://*', 'wss://*'],
-					fallback: ['/ /']
+					network: ['ws://localhost:35729', '//www.google-analytics.com', '//stats.offlinetube.co.uk'],
+					fallback: ['/ /index.html']
 				},
 				src: ['index.*', 'appcache.html'],
 				dest: '../appcache.manifest'
