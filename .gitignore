@@ -1,4 +1,6 @@
-src/bower_components
-src/node_modules
-src/js/templates.js
-src/js/data
+/src/node_modules
+/src/bower_components
+/src/js/templates.js
+/src/js/data
+/src/run.cmd
+/*.*
