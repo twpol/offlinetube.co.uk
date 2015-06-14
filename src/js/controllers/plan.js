@@ -3,13 +3,16 @@ define([
 	'data/index',
 	'find-path'
 ], function (_, data, findPath) {
-	return ['$scope', '$routeParams', '$sce', function ($scope, $routeParams, $sce) {
+	return ['$scope', '$routeParams', '$location', function ($scope, $routeParams, $location) {
 		$scope.network = _.first(data, {key: $routeParams.network});
 		$scope.stations = _.values($scope.network.stations);
-		$scope.planUrl = $sce.trustAsResourceUrl('/network/' + $scope.network.key + '/plan');
+		$scope.title = 'Plan a route'; // I don't like this
 		if ($routeParams.from || $routeParams.to) {
 			$scope.from = $scope.network.stations[$routeParams.from];
 			$scope.to = $scope.network.stations[$routeParams.to];
+			if ($scope.from && $scope.to) {
+				$scope.title = $scope.from.name + ' to ' + $scope.to.name; // I don't like this
+			}
 			
 			if ($routeParams.from && $routeParams.to) {
 				var directions = {
@@ -82,5 +85,16 @@ define([
 				});
 			}
 		}
+		$scope.$watchGroup(['from', 'to'], function() {
+			if ($scope.from && $scope.to) {
+				$location.url('?from=' + $scope.from.key + '&to=' + $scope.to.key);
+			} else if ($scope.from) {
+				$location.url('?from=' + $scope.from.key);
+			} else if ($scope.to) {
+				$location.url('?to=' + $scope.to.key);
+			} else {
+				$location.url('./plan'); // Not sure this can happen.
+			}
+		});
 	}];
 });

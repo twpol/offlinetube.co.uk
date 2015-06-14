@@ -1,6 +1,6 @@
 extends layout.jade
 block title
-	| {{network.name}}
+	| {{title}}
 block breadcrumb
 	li
 		a(href="/") Offline Tube
@@ -9,20 +9,15 @@ block breadcrumb
 	li.active
 		| Plan a route
 block content
-	form.plan-a-route(method="GET" action="{{planUrl}}")
+	form.plan-a-route
 		div
 			label.control-label From
 			div
-				select.form-control(name="from")
-					option(ng-repeat="station in stations | orderBy:'name'" value="{{station.key}}" ng-selected="station.key === from.key") {{station.name}}
+				select.form-control(ng-model="from" ng-options="station.name for station in stations | orderBy:'name'")
 		div
 			label.control-label To
 			div
-				select.form-control(name="to")
-					option(ng-repeat="station in stations | orderBy:'name'" value="{{station.key}}" ng-selected="station.key === to.key") {{station.name}}
-		div.action
-			div
-				input.form-control(type="submit" value="Plan")
+				select.form-control(ng-model="to" ng-options="station.name for station in stations | orderBy:'name'")
 	ul.paths
 		li(ng-repeat="path in paths | orderBy:'minutes'")
 			ol.segments
