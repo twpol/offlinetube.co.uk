@@ -5,6 +5,10 @@ define([
 		console.log('Finding path from %s to %s', station1.name, station2.name);
 		console.time('find-path');
 		
+		var routeLine = function (route) {
+			return network.routes[route].line;
+		};
+		
 		// TODO: Filter routes based on direction?
 		var directRoutes = _.intersection(station1.routes, station2.routes);
 		var station1IndirectRoutes = _.difference(station1.routes, directRoutes);
@@ -12,7 +16,7 @@ define([
 		
 		// Look for any direct paths first.
 		var direct = _(directRoutes)
-			.groupBy(function (route) { return network.routes[route].line; })
+			.groupBy(routeLine)
 			.values()
 			.map(function (routes) {
 				return [station1.key, routes, station2.key];
@@ -30,16 +34,31 @@ define([
 			})
 			.map(function (interchange) {
 				// Construct the indirect data: start, routes, interchange, routes, end.
-				var segment1Routes = _.intersection(station1.routes, interchange.routes);
-				var segment2Routes = _.intersection(station2.routes, interchange.routes);
-				return [
-					station1.key,
-					segment1Routes,
-					interchange.key,
-					_.difference(segment2Routes, segment1Routes),
-					station2.key
-				];
-			}).filter(function (indirectRoute) {
+				// Grouping by line so we split up the alternatives better.
+				// TODO: This should be based on platform/station stops or something?
+				var segment1Routes = _(station1.routes)
+					.intersection(interchange.routes)
+					.groupBy(routeLine)
+					.values()
+					.value();
+				var segment2Routes = _(station2.routes)
+					.intersection(interchange.routes)
+					.groupBy(routeLine)
+					.values()
+					.value();
+				return _.map(segment1Routes, function (segment1) {
+					return _.map(segment2Routes, function (segment2) {
+						return [
+							station1.key,
+							segment1,
+							interchange.key,
+							segment2,
+							station2.key
+						];
+					});
+				});
+			}).flatten().flatten().filter(function (indirectRoute) {
+				console.log(indirectRoute);
 				// Filter out any calculated interchanges where the possible routes are empty (due to being the same on both legs).
 				return indirectRoute[1].length > 0 && indirectRoute[3].length > 0;
 			})
