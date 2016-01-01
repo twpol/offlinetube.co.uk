@@ -9,6 +9,8 @@ module.exports = function (grunt) {
 			js: ['js/**/*.js'],
 			jsdata: ['js/data/**/*.js'],
 			less: ['less/index.less'],
+			png: ['png/*.png'],
+			svg: ['svg/*.svg'],
 			html: ['html/*.html'],
 			manifest: ['../index.*']
 		},
@@ -56,6 +58,14 @@ module.exports = function (grunt) {
 			less: {
 				files: '<%= files.less %>',
 				tasks: ['build:less']
+			},
+			png: {
+				files: '<%= files.png %>',
+				tasks: ['build:png']
+			},
+			svg: {
+				files: '<%= files.svg %>',
+				tasks: ['build:svg']
 			},
 			html: {
 				files: '<%= files.html %>',
@@ -158,6 +168,16 @@ module.exports = function (grunt) {
 				src: '<%= files.data %>',
 				dest: 'js'
 			},
+			png: {
+				expand: true,
+				src: '<%= files.png %>',
+				dest: '../'
+			},
+			svg: {
+				expand: true,
+				src: '<%= files.svg %>',
+				dest: '../'
+			},
 			html: {
 				expand: true,
 				flatten: true,
@@ -182,8 +202,10 @@ module.exports = function (grunt) {
 	grunt.registerTask('build:template', ['html2js:template']);
 	grunt.registerTask('build:js', ['jshint:js', 'requirejs:js']);
 	grunt.registerTask('build:less', ['less:less']);
+	grunt.registerTask('build:png', ['copy:png']);
+	grunt.registerTask('build:svg', ['copy:svg']);
 	grunt.registerTask('build:html', ['copy:html']);
 	grunt.registerTask('build:manifest', ['manifest:manifest']);
-	grunt.registerTask('build', ['copy:data', 'execute:data', 'html2js:template', 'jshint:js', 'requirejs:js', 'less:less', 'copy:html', 'manifest:manifest']);
+	grunt.registerTask('build', ['build:data', 'build:template', 'build:js', 'build:less', 'build:png', 'build:svg', 'build:html', 'build:manifest']);
 	grunt.registerTask('default', ['watch']);
 };

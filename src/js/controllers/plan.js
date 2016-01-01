@@ -24,12 +24,12 @@ define([
 					anticlockwise: 'anti-clockwise'
 				};
 				var directionsShort = {
-					north: '\u2191',
-					south: '\u2193',
-					east: '\u2192',
-					west: '\u2190',
-					clockwise: '\u27F3',
-					anticlockwise: '\u27F2'
+					north: 'N',
+					south: 'S',
+					east: 'E',
+					west: 'W',
+					clockwise: 'CW',
+					anticlockwise: 'CCW'
 				};
 				
 				var paths = findPath($scope.network, $scope.from, $scope.to);
@@ -56,6 +56,7 @@ define([
 											line: $scope.network.lines[$scope.network.routes[route].line].name,
 											color: $scope.network.lines[$scope.network.routes[route].line].color,
 											textColor: $scope.network.lines[$scope.network.routes[route].line].textColor,
+											directionKey: $scope.network.routes[route].toDirection,
 											direction: directions[$scope.network.routes[route].toDirection],
 											directionShort: directionsShort[$scope.network.routes[route].toDirection],
 											to: $scope.network.routes[route].toViaName,
@@ -66,6 +67,7 @@ define([
 										line: $scope.network.lines[$scope.network.routes[route].line].name,
 										color: $scope.network.lines[$scope.network.routes[route].line].color,
 										textColor: $scope.network.lines[$scope.network.routes[route].line].textColor,
+										directionKey: $scope.network.routes[route].fromDirection,
 										direction: directions[$scope.network.routes[route].fromDirection],
 										directionShort: directionsShort[$scope.network.routes[route].fromDirection],
 										to: $scope.network.routes[route].fromViaName,
@@ -93,7 +95,7 @@ define([
 			} else if ($scope.to) {
 				$location.url('?to=' + $scope.to.key);
 			} else {
-				$location.url('./plan'); // Not sure this can happen.
+				$location.url('/network/' + $scope.network.key + '/plan'); // Not sure this can happen.
 			}
 		});
 	}];

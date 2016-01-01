@@ -42,7 +42,7 @@ block content
 									ng-pluralize(count="route.stops" when="{'1': 'stop', 'other': 'stops'}")
 								|  towards 
 							span.instruction-short
-								span.line-icon {{route.directionShort}}
+								span.line-icon(class="direction-{{route.directionKey}}")
 								strong.line-icon {{route.stops}}
 								span.line-icon &#x1F689;
 							| {{route.to}}

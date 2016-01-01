@@ -190,6 +190,34 @@ body {
 			text-align: center;
 		}
 		
+		.line-icon.direction-north,
+		.line-icon.direction-east,
+		.line-icon.direction-south,
+		.line-icon.direction-west {
+			background: url('svg/direction-north.svg');
+		}
+		
+		.line-icon.direction-east {
+			transform: rotate(90deg);
+		}
+		
+		.line-icon.direction-south {
+			transform: rotate(180deg);
+		}
+		
+		.line-icon.direction-west {
+			transform: rotate(270deg);
+		}
+		
+		.line-icon.direction-clockwise,
+		.line-icon.direction-anticlockwise {
+			background: url('svg/direction-clockwise.svg');
+		}
+		
+		.line-icon.direction-anticlockwise {
+			transform: scale(-1, 1);
+		}
+		
 		.instruction-short {
 			display: none;
 		}
