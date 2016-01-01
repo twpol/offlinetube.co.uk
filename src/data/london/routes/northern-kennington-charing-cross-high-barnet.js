@@ -1,0 +1,30 @@
+define({
+	toDirection: 'north',
+	fromDirection: 'south',
+	via: ['charing-cross'],
+	train: 'deep-6car',
+	line: 'northern',
+	stations: [
+		'kennington',
+		'waterloo',
+		'embankment',
+		'charing-cross',
+		'leicester-square',
+		'tottenham-court-road',
+		'goodge-street',
+		'warren-street',
+		'euston',
+		'mornington-crescent',
+		'camden-town',
+		'kentish-town',
+		'tufnell-park',
+		'archway',
+		'highgate',
+		'east-finchley',
+		'finchley-central',
+		'west-finchley',
+		'woodside-park',
+		'totteridge-and-whetstone',
+		'high-barnet'
+	]
+});

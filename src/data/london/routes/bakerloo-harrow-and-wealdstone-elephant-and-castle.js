@@ -1,0 +1,33 @@
+define({
+	toDirection: 'south',
+	fromDirection: 'north',
+	//train: 'deep-6car',
+	line: 'bakerloo',
+	stations: [
+		'harrow-and-wealdstone',
+		'kenton',
+		'south-kenton',
+		'north-wembley',
+		'wembley-central',
+		'stonebridge-park',
+		'harlesden',
+		'willesden-junction',
+		'kensal-green',
+		'queens-park',
+		'kilburn-park',
+		'maida-vale',
+		'warwick-avenue',
+		'paddington',
+		'edgware-road',
+		'marylebone',
+		'baker-street',
+		'regents-park',
+		'oxford-circus',
+		'piccadilly-circus',
+		'charing-cross',
+		'embankment',
+		'waterloo',
+		'lambeth-north',
+		'elephant-and-castle'
+	]
+});

@@ -41,6 +41,7 @@ define([
 						.replace('Earls ', 'Earl\'s ')
 						.replace(' Jamess', ' James\'s')
 						.replace(' Johns', ' John\'s')
+						.replace(' On The Hill', '-on-the-Hill')
 						.replace(' Pauls', ' Paul\'s')
 						.replace('Queens ', 'Queen\'s ')
 						.replace('Regents ', 'Regent\'s ')

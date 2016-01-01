@@ -1,0 +1,32 @@
+define({
+	toDirection: 'west',
+	fromDirection: 'east',
+	//via: ['charing-cross'],
+	//train: 'deep-6car',
+	line: 'metropolitan',
+	stations: [
+		'aldgate',
+		'liverpool-street',
+		'moorgate',
+		'barbican',
+		'farringdon',
+		'kings-cross-st-pancras',
+		'euston-square',
+		'great-portland-street',
+		'baker-street',
+		'finchley-road',
+		'wembley-park',
+		'preston-road',
+		'northwick-park',
+		'harrow-on-the-hill',
+		'north-harrow',
+		'pinner',
+		'northwood-hills',
+		'northwood',
+		'moor-park',
+		'rickmansworth',
+		'chorleywood',
+		'chalfont-and-latimer',
+		'amersham'
+	]
+});
