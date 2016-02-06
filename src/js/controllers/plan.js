@@ -87,6 +87,11 @@ define([
 				});
 			}
 		}
+		$scope.switchDirection = function () {
+			var temp = $scope.from;
+			$scope.from = $scope.to;
+			$scope.to = temp;
+		};
 		$scope.$watchGroup(['from', 'to'], function () {
 			if ($scope.from && $scope.to) {
 				$location.url('?from=' + $scope.from.key + '&to=' + $scope.to.key);

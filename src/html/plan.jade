@@ -18,6 +18,10 @@ block content
 			label.control-label To
 			div
 				select.form-control(ng-model="to" ng-options="station.name for station in stations | orderBy:'name'")
+		div
+			label.control-label
+			div
+				button.form-control(ng-click="switchDirection()") Switch direction
 	ul.paths
 		li(ng-repeat="path in paths | orderBy:'minutes'")
 			ol.segments
