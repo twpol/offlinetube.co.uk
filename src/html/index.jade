@@ -5,7 +5,7 @@ block breadcrumb
 	li.active
 		| Offline Tube
 block content
-	p Available tube (underground) networks:
+	p Networks:
 	ul.networks
 		li(ng-repeat="network in networks")
 			a(href="network/{{network.key}}") {{network.name}}
