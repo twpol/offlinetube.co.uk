@@ -13,5 +13,5 @@ block breadcrumb
 block content
 	p Stations:
 	ul.ordered-stations
-		li(ng-repeat="station in stations")
+		li(ng-repeat="station in stations track by $index")
 			a(href="network/{{network.key}}/station/{{station.key}}") {{station.name}}
