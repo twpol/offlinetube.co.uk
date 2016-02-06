@@ -16,4 +16,4 @@ block content
 	p Routes:
 	ul.routes
 		li(ng-repeat="route in routes | orderBy:'name'")
-			a(href="network/{{network.key}}/route/{{route.key}}") {{route.name}}
+			a(href="network/{{network.key}}/line/{{line.key}}/route/{{route.key}}") {{route.name}}

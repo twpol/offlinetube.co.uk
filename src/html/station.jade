@@ -13,7 +13,7 @@ block breadcrumb
 block content
 	p
 		a(href="network/{{network.key}}/plan?from={{station.key}}") Plan a route to or from {{station.name}}
-	p Served by:
+	p Lines:
 	ul.lines
 		li(ng-repeat="line in lines | orderBy:'name'")
 			a(href="network/{{network.key}}/line/{{line.key}}")
@@ -22,4 +22,6 @@ block content
 	p Routes:
 	ul.routes
 		li(ng-repeat="route in routes | orderBy:'name'")
-			a(href="network/{{network.key}}/route/{{route.key}}") {{route.name}}
+			a(href="network/{{network.key}}/line/{{route.line.key}}/route/{{route.key}}")
+				span.line-icon(ng-style="{'background-color': '{{route.line.color}}', 'color': '{{route.line.textColor}}'}") &#x1F687;
+				|  {{route.name}}

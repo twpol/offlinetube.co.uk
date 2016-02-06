@@ -125,6 +125,7 @@ body {
 		}
 		
 		> ul.lines,
+		> ul.routes,
 		> ul.stations {
 			list-style: none;
 			padding: 0 0 0 1.43em;
@@ -132,6 +133,12 @@ body {
 			@media (min-width: @screen-sm-min) {
 				columns: 13.4em;
 				column-gap: 1.43em;
+			}
+		}
+		
+		> ul.routes {
+			@media (min-width: @screen-sm-min) {
+				columns: 28.23em;
 			}
 		}
 		

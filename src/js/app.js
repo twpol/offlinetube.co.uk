@@ -33,49 +33,49 @@ define([
 		'angulartics.piwik',
 		'templates-template'
 	])
-	.controller('IndexController', indexController)
-	.controller('NetworkController', networkController)
-	.controller('LineController', lineController)
-	.controller('StationController', stationController)
-	.controller('RouteController', routeController)
-	.controller('PlanController', planController)
-	.config(['$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider) {
-		$routeProvider
-			.when('/', {
-				templateUrl: '../html/index.jade',
-				controller: 'IndexController'
-			})
-			.when('/network/:network', {
-				templateUrl: '../html/network.jade',
-				controller: 'NetworkController'
-			})
-			.when('/network/:network/line/:line', {
-				templateUrl: '../html/line.jade',
-				controller: 'LineController'
-			})
-			.when('/network/:network/line/:line/station/:station', {
-				templateUrl: '../html/station.jade',
-				controller: 'StationController'
-			})
-			.when('/network/:network/station/:station', {
-				templateUrl: '../html/station.jade',
-				controller: 'StationController'
-			})
-			.when('/network/:network/route/:route', {
-				templateUrl: '../html/route.jade',
-				controller: 'RouteController'
-			})
-			.when('/network/:network/plan', {
-				templateUrl: '../html/plan.jade',
-				controller: 'PlanController'
+		.controller('IndexController', indexController)
+		.controller('NetworkController', networkController)
+		.controller('LineController', lineController)
+		.controller('StationController', stationController)
+		.controller('RouteController', routeController)
+		.controller('PlanController', planController)
+		.config(['$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider) {
+			$routeProvider
+				.when('/', {
+					templateUrl: '../html/index.jade',
+					controller: 'IndexController'
+				})
+				.when('/network/:network', {
+					templateUrl: '../html/network.jade',
+					controller: 'NetworkController'
+				})
+				.when('/network/:network/line/:line', {
+					templateUrl: '../html/line.jade',
+					controller: 'LineController'
+				})
+				.when('/network/:network/line/:line/station/:station', {
+					templateUrl: '../html/station.jade',
+					controller: 'StationController'
+				})
+				.when('/network/:network/station/:station', {
+					templateUrl: '../html/station.jade',
+					controller: 'StationController'
+				})
+				.when('/network/:network/line/:line/route/:route', {
+					templateUrl: '../html/route.jade',
+					controller: 'RouteController'
+				})
+				.when('/network/:network/plan', {
+					templateUrl: '../html/plan.jade',
+					controller: 'PlanController'
+				});
+			$locationProvider.html5Mode(true);
+		}])
+		.run(['$rootScope', '$timeout', '$document', '$rootElement', function ($rootScope, $timeout, $document, $rootElement) {
+			$rootScope.$on('$viewContentLoaded', function () {
+				$timeout(function () {
+					$document[0].title = $rootElement.find('h1').text();
+				});
 			});
-		$locationProvider.html5Mode(true);
-	}])
-	.run(['$rootScope', '$timeout', '$document', '$rootElement', function ($rootScope, $timeout, $document, $rootElement) {
-		$rootScope.$on('$viewContentLoaded', function () {
-			$timeout(function () {
-				$document[0].title = $rootElement.find('h1').text();
-			});
-		});
-	}]);
+		}]);
 });

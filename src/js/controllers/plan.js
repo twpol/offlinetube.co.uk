@@ -4,7 +4,7 @@ define([
 	'find-path'
 ], function (_, data, findPath) {
 	return ['$scope', '$routeParams', '$location', function ($scope, $routeParams, $location) {
-		$scope.network = _.first(data, {key: $routeParams.network});
+		$scope.network = _.first(data, { key: $routeParams.network });
 		$scope.stations = _.values($scope.network.stations);
 		$scope.title = 'Plan a route'; // I don't like this
 		if ($routeParams.from || $routeParams.to) {
@@ -13,7 +13,7 @@ define([
 			if ($scope.from && $scope.to) {
 				$scope.title = $scope.from.name + ' to ' + $scope.to.name; // I don't like this
 			}
-			
+
 			if ($routeParams.from && $routeParams.to) {
 				var directions = {
 					north: 'northbound',
@@ -31,7 +31,7 @@ define([
 					clockwise: 'CW',
 					anticlockwise: 'CCW'
 				};
-				
+
 				var paths = findPath($scope.network, $scope.from, $scope.to);
 				$scope.paths = _.map(paths, function (path) {
 					var rv = {
@@ -87,7 +87,7 @@ define([
 				});
 			}
 		}
-		$scope.$watchGroup(['from', 'to'], function() {
+		$scope.$watchGroup(['from', 'to'], function () {
 			if ($scope.from && $scope.to) {
 				$location.url('?from=' + $scope.from.key + '&to=' + $scope.to.key);
 			} else if ($scope.from) {
