@@ -23,7 +23,7 @@ block content
 			div
 				button.form-control(ng-click="switchDirection()") Switch direction
 	ul.paths
-		li(ng-repeat="path in paths | orderBy:'minutes'")
+		li(ng-repeat="path in paths | orderBy:'minutes' | limitTo:10")
 			ol.segments
 				li.summary
 					| {{path.minutes}} minutes: 
