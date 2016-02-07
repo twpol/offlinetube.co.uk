@@ -8,13 +8,7 @@ define([
 	var addKey = function (object, key) {
 		object.key = key;
 	};
-//	var addLink = function (source, sourceName, destination, destinationName, keyName) {
-//		_.forEach(source, function (sourceObject, sourceKey) {
-//			var filter = {};
-//			filter[destinationName] = sourceKey;
-//			sourceObject[sourceName] = _.chain(destination).filter(filter).pluck(keyName).unique().value();
-//		});
-//	};
+
 	var addLinkList = function (source, sourceName, destination, destinationName, keyName) {
 		_.forEach(source, function (sourceObject, sourceKey) {
 			sourceObject[sourceName] = _.chain(destination).filter(function (destinationObject) {
@@ -24,10 +18,8 @@ define([
 	};
 
 	/* jshint devel: true */
-	console.time('london-add-stations');
+	console.time('london-station-creation');
 	_.forEach(routes, function (route) {
-		route.from = _.first(route.stations);
-		route.to = _.last(route.stations);
 		_.forEach(route.stations, function (station) {
 			if (!(station in stations)) {
 				stations[station] = {
@@ -51,14 +43,39 @@ define([
 			}
 		});
 	});
-	console.timeEnd('london-add-stations');
+	console.timeEnd('london-station-creation');
 
-	console.time('london-add-key');
+	console.time('london-setup');
 	_.forEach(routes, addKey);
 	_.forEach(trains, addKey);
 	_.forEach(lines, addKey);
 	_.forEach(stations, addKey);
-	console.timeEnd('london-add-key');
+	console.timeEnd('london-setup');
+
+	console.time('london-route-setup');
+	_.forEach(routes, function (route) {
+		route.from = _.first(route.stations);
+		route.to = _.last(route.stations);
+		route.viaName = route.via && route.via.length ? _.map(route.via, function (station) { return stations[station].name; }).join(', ') : '';
+		route.fromName = stations[route.from].name;
+		route.fromViaName = route.fromName + (route.viaName ? ' via ' + route.viaName : '');
+		route.toName = stations[route.to].name;
+		route.toViaName = route.toName + (route.viaName ? ' via ' + route.viaName : '');
+		route.name = route.fromName + ' to ' + route.toViaName;
+		route.stationInRoute = {};
+		_.forEach(route.stations, function (station) {
+			route.stationInRoute[station] = true;
+		});
+	});
+	console.timeEnd('london-route-setup');
+
+	console.time('london-station-setup');
+	addLinkList(stations, 'routes', routes, 'stations', 'key');
+	addLinkList(stations, 'lines', routes, 'stations', 'line');
+	_.forEach(stations, function (station) {
+		station.interchange = station.lines.length > 1;
+	});
+	console.timeEnd('london-station-setup');
 
 	console.time('london-check-links');
 	_.forEach(routes, function (route) {
@@ -67,10 +84,7 @@ define([
 		_.forEach(route.via, function (via) {
 			if (!_.includes(route.stations, via)) { console.warn('  %s: Via station "%s" not found in station list', route.key, via); }
 		});
-//		_.forEach(route.stations, function (station) {
-//			if (!(station in stations)) { console.warn('  %s: Station "%s" not found', route.key, station); }
-//		});
-		if (!(route.train in trains)) { console.warn('  %s: Train "%s" not found', route.key, route.train); }
+		// if (!(route.train in trains)) { console.warn('  %s: Train "%s" not found', route.key, route.train); }
 		if (!(route.line in lines)) { console.warn('  %s: Line "%s" not found', route.key, route.line); }
 	});
 	_.forEach(stations, function (station) {
@@ -88,34 +102,6 @@ define([
 		});
 	});
 	console.timeEnd('london-check-links');
-
-	console.time('london-add-links');
-	// Data model:
-	//            +--> Train
-	//   Route ---+--> Line
-	//            +--> Station
-	//
-	// Generated links:
-	//   Station --> Routes
-	addLinkList(stations, 'routes', routes, 'stations', 'key');
-	//   Station --> Lines
-	addLinkList(stations, 'lines', routes, 'stations', 'line');
-	//   Line --> Trains
-	//addLink(lines, 'trains', routes, 'line', 'train');
-	console.timeEnd('london-add-links');
-
-	console.time('london-add-route-names');
-	_.forEach(routes, function (route) {
-		route.viaName = route.via && route.via.length ? _.map(route.via, function(station) { return stations[station].name; }).join(', ') : '';
-		route.fromName = stations[route.from].name;
-		route.fromViaName = route.fromName + (route.viaName ? ' via ' + route.viaName : '');
-		route.toName = stations[route.to].name;
-		route.toViaName = route.toName + (route.viaName ? ' via ' + route.viaName : '');
-		route.name = route.fromName + ' to ' + route.toViaName;
-	});
-	console.timeEnd('london-add-route-names');
-	
-	console.log(trains, lines, stations, routes);
 
 	return {
 		key: 'london',
