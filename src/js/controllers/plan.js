@@ -45,7 +45,7 @@ define([
 							var segmentStops = [1000, 0];
 							rv.segments.push({
 								station: $scope.network.stations[path[segmentIndex - 1]].name,
-								routes: _.map(segment, function (route) {
+								routes: _.uniqBy(_.map(segment, function (route) {
 									var fromIndex = $scope.network.routes[route].stations.indexOf(path[segmentIndex - 1]);
 									var toIndex = $scope.network.routes[route].stations.indexOf(path[segmentIndex + 1]);
 									var stops = Math.abs(fromIndex - toIndex);
@@ -73,7 +73,7 @@ define([
 										to: $scope.network.routes[route].fromViaName,
 										stops: fromIndex - toIndex
 									};
-								})
+								}), 'to')
 							});
 							rv.stops[0] += segmentStops[0];
 							rv.stops[1] += segmentStops[1];
