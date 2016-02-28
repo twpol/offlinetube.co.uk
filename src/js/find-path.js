@@ -62,6 +62,7 @@ define([
 					.forEach(function (stationA) {
 						_(stationA.routes)
 							.map(route)
+							.reject(routeA)
 							.forEach(function (routeB) {
 								if (_.includes(station2.routes, routeB.key)) {
 									paths.push(makePath([station1, routeA, stationA, routeB, station2]));
@@ -75,6 +76,7 @@ define([
 									.forEach(function (stationB) {
 										_(stationB.routes)
 											.map(route)
+											.reject(routeB)
 											.forEach(function (routeC) {
 												if (_.includes(station2.routes, routeC.key)) {
 													paths.push(makePath([station1, routeA, stationA, routeB, stationB, routeC, station2]));
