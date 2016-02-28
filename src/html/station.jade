@@ -12,7 +12,7 @@ block breadcrumb
 		| {{station.name}}
 block content
 	p
-		a(href="network/{{network.key}}/plan?from={{station.key}}") Plan a route to or from {{station.name}}
+		a.plan(href="network/{{network.key}}/plan?from={{station.key}}") Plan a route to or from {{station.name}}
 	p Lines:
 	ul.lines
 		li(ng-repeat="line in lines | orderBy:'name'")

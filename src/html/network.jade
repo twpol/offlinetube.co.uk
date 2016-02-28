@@ -8,7 +8,7 @@ block breadcrumb
 		| {{network.name}}
 block content
 	p
-		a(href="network/{{network.key}}/plan") Plan a route
+		a.plan(href="network/{{network.key}}/plan") Plan a route
 	p Lines:
 	ul.lines
 		li(ng-repeat="line in lines | orderBy:'name'")
