@@ -11,9 +11,9 @@ define([
 
 	var addLinkList = function (source, sourceName, destination, destinationName, keyName) {
 		_.forEach(source, function (sourceObject, sourceKey) {
-			sourceObject[sourceName] = _.chain(destination).filter(function (destinationObject) {
-				return _.contains(destinationObject[destinationName], sourceKey);
-			}).pluck(keyName).unique().value();
+			sourceObject[sourceName] = _(destination).filter(function (destinationObject) {
+				return _.includes(destinationObject[destinationName], sourceKey);
+			}).map(keyName).uniq().value();
 		});
 	};
 
@@ -94,7 +94,7 @@ define([
 					if (route) {
 						if (!(route in routes)) { console.warn('  %s: Link %d.%s to route "%s" does not exist', station.key, linkIndex, linkType, route); }
 						if (route in routes) {
-							if (!_.contains(routes[route].stations, station.key)) { console.warn('  %s: Link %d.%s to route "%s" does not link back', station.key, linkIndex, linkType, route); }
+							if (!_.includes(routes[route].stations, station.key)) { console.warn('  %s: Link %d.%s to route "%s" does not link back', station.key, linkIndex, linkType, route); }
 						}
 					}
 				});

@@ -79,16 +79,11 @@ define([
 												if (_.includes(station2.routes, routeC.key)) {
 													paths.push(makePath([station1, routeA, stationA, routeB, stationB, routeC, station2]));
 												}
-											})
-											.value();
-									})
-									.value();
-							})
-							.value();
-					})
-					.value();
-			})
-			.value();
+											});
+									});
+							});
+					});
+			});
 		// console.log(JSON.stringify(paths, null, 2));
 		console.timeEnd('find-path');
 
