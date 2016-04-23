@@ -1,6 +1,6 @@
 /* jshint node: true */
 var fs = require('fs');
-var baseDir = 'js/data/';
+var baseDir = 'src/js/data/';
 var datasets = fs.readdirSync(baseDir);
 for (var i = 0; i < datasets.length; i++) {
 	var stat = fs.statSync(baseDir + datasets[i]);

@@ -5,21 +5,21 @@ module.exports = function (grunt) {
 		files: {
 			grunt: ['Gruntfile.js'],
 			data: ['data/**/*.js'],
-			template: ['html/**/*.tpl.html', 'html/**/*.jade'],
+			template: ['src/html/**/*.tpl.html', 'src/html/**/*.jade'],
 			js: ['js/**/*.js'],
 			jsdata: ['js/data/**/*.js'],
-			less: ['less/index.less'],
+			less: ['src/less/index.less'],
 			png: ['png/*.png'],
 			svg: ['svg/*.svg'],
 			html: ['html/*.html'],
-			manifest: ['../index.*']
+			manifest: ['index.*']
 		},
 		connect: {
 			server: {
 				options: {
 					port: 8001,
 					useAvailablePort: true,
-					base: '..',
+					base: '.',
 					middleware: function (connect, options, middlewares) {
 						middlewares.unshift(function (req, res, next) {
 							if (!/\./.test(req.url)) {
@@ -122,18 +122,21 @@ module.exports = function (grunt) {
 						angular: true
 					}
 				},
-				src: '<%= files.js %>'
+				files: {
+					cwd: 'src',
+					src: '<%= files.js %>'
+				}
 			}
 		},
 		execute: {
 			data: {
-				src: 'js/build/data.js'
+				src: 'src/js/build/data.js'
 			}
 		},
 		html2js: {
 			template: {
 				src: '<%= files.template %>',
-				dest: 'js/templates.js'
+				dest: 'src/js/templates.js'
 			}
 		},
 		requirejs: {
@@ -142,22 +145,25 @@ module.exports = function (grunt) {
 					optimize: 'uglify2',
 					generateSourceMaps: true,
 					preserveLicenseComments: false,
-					baseUrl: 'js',
-					mainConfigFile: 'js/index.js',
-					name: '../bower_components/almond/almond',
+					baseUrl: 'src/js',
+					mainConfigFile: 'src/js/index.js',
+					name: '../../bower_components/almond/almond',
 					include: ['index'],
-					out: '../index.js'
+					out: 'index.js'
 				}
 			}
 		},
 		less: {
 			less: {
 				src: '<%= files.less %>',
-				dest: '../index.css'
+				dest: 'index.css'
 			}
 		},
 		clean: {
-			data: '<%= files.jsdata %>'
+			data: {
+				cwd: 'src',
+				src: '<%= files.jsdata %>'
+			}
 		},
 		copy: {
 			options: {
@@ -165,35 +171,39 @@ module.exports = function (grunt) {
 			},
 			data: {
 				expand: true,
+				cwd: 'src',
 				src: '<%= files.data %>',
-				dest: 'js'
+				dest: 'src/js'
 			},
 			png: {
 				expand: true,
+				cwd: 'src',
 				src: '<%= files.png %>',
-				dest: '../'
+				dest: '.'
 			},
 			svg: {
 				expand: true,
+				cwd: 'src',
 				src: '<%= files.svg %>',
-				dest: '../'
+				dest: '.'
 			},
 			html: {
 				expand: true,
 				flatten: true,
+				cwd: 'src',
 				src: '<%= files.html %>',
-				dest: '../'
+				dest: '.'
 			}
 		},
 		manifest: {
 			manifest: {
 				options: {
-					basePath: '../',
+					basePath: '.',
 					network: ['ws://localhost:35729', '//www.google-analytics.com', '//stats.offlinetube.co.uk'],
 					fallback: ['/ /index.html']
 				},
 				src: ['index.*', 'appcache.html'],
-				dest: '../appcache.manifest'
+				dest: 'appcache.manifest'
 			}
 		}
 	});

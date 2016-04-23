@@ -1,6 +1,6 @@
 require.config({
 	paths: {
-		library: '../bower_components'
+		library: '../../bower_components'
 	}
 });
 /* jshint unused: false */
