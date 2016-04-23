@@ -1,4 +1,3 @@
-/// <reference path="../typings/angularjs/angular.d.ts"/>
 define([
 	'library/angular/angular',
 	'library/angular-route/angular-route',
@@ -42,31 +41,31 @@ define([
 		.config(['$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider) {
 			$routeProvider
 				.when('/', {
-					templateUrl: 'html/index.jade',
+					templateUrl: 'html/index.html',
 					controller: 'IndexController'
 				})
 				.when('/network/:network', {
-					templateUrl: 'html/network.jade',
+					templateUrl: 'html/network.html',
 					controller: 'NetworkController'
 				})
 				.when('/network/:network/line/:line', {
-					templateUrl: 'html/line.jade',
+					templateUrl: 'html/line.html',
 					controller: 'LineController'
 				})
 				.when('/network/:network/line/:line/station/:station', {
-					templateUrl: 'html/station.jade',
+					templateUrl: 'html/station.html',
 					controller: 'StationController'
 				})
 				.when('/network/:network/station/:station', {
-					templateUrl: 'html/station.jade',
+					templateUrl: 'html/station.html',
 					controller: 'StationController'
 				})
 				.when('/network/:network/line/:line/route/:route', {
-					templateUrl: 'html/route.jade',
+					templateUrl: 'html/route.html',
 					controller: 'RouteController'
 				})
 				.when('/network/:network/plan', {
-					templateUrl: 'html/plan.jade',
+					templateUrl: 'html/plan.html',
 					controller: 'PlanController'
 				});
 			$locationProvider.html5Mode(true);

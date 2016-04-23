@@ -19,4 +19,3 @@ define([
 		}
 	});
 });
-require('index');

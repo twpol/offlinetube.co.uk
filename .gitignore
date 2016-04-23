@@ -1,7 +1,10 @@
 /node_modules
 /bower_components
+/src/css/*.css
+/src/html/*.html
+/src/js/data/*/*.js
 /src/js/templates.js
-/src/js/data
+/css
 /png
 /svg
 /*.*
