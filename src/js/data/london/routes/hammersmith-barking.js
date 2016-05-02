@@ -1,7 +1,7 @@
 define({
 	toDirection: 'east',
 	fromDirection: 'west',
-	//train: 'deep-6car',
+	train: 's-7cars',
 	line: 'hammersmith-city',
 	stations: [
 		'hammersmith',

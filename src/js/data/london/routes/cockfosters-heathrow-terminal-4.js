@@ -1,7 +1,7 @@
 define({
 	toDirection: 'west',
 	fromDirection: 'east',
-	//train: 'deep-6car',
+	train: '1973-6cars',
 	line: 'piccadilly',
 	stations: [
 		'cockfosters',

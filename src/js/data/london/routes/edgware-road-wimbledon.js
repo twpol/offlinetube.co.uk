@@ -1,7 +1,7 @@
 define({
 	toDirection: 'west',
 	fromDirection: 'east',
-	//train: 'deep-6car',
+	train: 's-7cars',
 	line: 'district',
 	stations: [
 		'edgware-road',

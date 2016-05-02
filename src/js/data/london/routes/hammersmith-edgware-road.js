@@ -1,7 +1,7 @@
 define({
 	toDirection: 'clockwise',
 	fromDirection: 'anticlockwise',
-	//train: 'deep-6car',
+	train: 's-7cars',
 	line: 'circle',
 	stations: [
 		'hammersmith',

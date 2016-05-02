@@ -1,7 +1,7 @@
 define({
 	toDirection: 'south',
 	fromDirection: 'west',
-	//train: 'deep-6car',
+	train: 'dlr-3cars',
 	line: 'dlr',
 	stations: [
 		'bank',

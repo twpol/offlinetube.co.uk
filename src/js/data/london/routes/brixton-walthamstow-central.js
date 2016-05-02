@@ -1,7 +1,7 @@
 define({
 	toDirection: 'north',
 	fromDirection: 'south',
-	train: 'deep-8car',
+	train: '2009-8cars',
 	line: 'victoria',
 	stations: [
 		'brixton',

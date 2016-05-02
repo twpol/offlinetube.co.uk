@@ -2,7 +2,7 @@ define({
 	toDirection: 'north',
 	fromDirection: 'south',
 	via: ['charing-cross'],
-	train: 'deep-6car',
+	train: '1995-6cars',
 	line: 'northern',
 	stations: [
 		'morden',

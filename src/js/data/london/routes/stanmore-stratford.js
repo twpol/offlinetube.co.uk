@@ -1,8 +1,7 @@
 define({
 	toDirection: 'east',
 	fromDirection: 'west',
-	//via: ['charing-cross'],
-	//train: 'deep-6car',
+	train: '1996-7cars',
 	line: 'jubilee',
 	stations: [
 		'stanmore',

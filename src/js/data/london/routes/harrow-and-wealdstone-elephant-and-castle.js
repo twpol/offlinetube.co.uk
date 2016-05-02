@@ -1,7 +1,7 @@
 define({
 	toDirection: 'south',
 	fromDirection: 'north',
-	//train: 'deep-6car',
+	train: '1972-7cars',
 	line: 'bakerloo',
 	stations: [
 		'harrow-and-wealdstone',

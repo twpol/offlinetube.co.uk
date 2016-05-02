@@ -1,8 +1,7 @@
 define({
 	toDirection: 'west',
 	fromDirection: 'east',
-	//via: ['charing-cross'],
-	//train: 'deep-6car',
+	train: 's-8cars',
 	line: 'metropolitan',
 	stations: [
 		'aldgate',
