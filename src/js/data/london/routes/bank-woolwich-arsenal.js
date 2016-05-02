@@ -9,7 +9,7 @@ define({
 		'limehouse',
 		'westferry',
 		'poplar',
-		'blackwell',
+		'blackwall',
 		'east-india',
 		'canning-town',
 		'west-silvertown',

@@ -44,7 +44,7 @@ define({
 		'stamford-brook',
 		'turnham-green',
 		'gunnersbury',
-		'key-gardens',
+		'kew-gardens',
 		'richmond'
 	]
 });

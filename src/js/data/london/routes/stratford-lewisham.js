@@ -12,6 +12,16 @@ define({
 		'all-saints',
 		'poplar',
 		'west-india-quay',
-		'canary-wharf'
+		'canary-wharf',
+		'heron-quays',
+		'south-quay',
+		'crossharbour',
+		'mudchute',
+		'island-gardens',
+		'cutty-sark',
+		'greenwich',
+		'deptford-bridge',
+		'elverson-road',
+		'lewisham'
 	]
 });
