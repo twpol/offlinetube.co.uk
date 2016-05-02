@@ -23,7 +23,7 @@ define({
 		'marble-arch',
 		'bond-street',
 		'oxford-circus',
-		//'tottenham-court-road',
+		'tottenham-court-road',
 		'holborn',
 		'chancery-lane',
 		'st-pauls',
