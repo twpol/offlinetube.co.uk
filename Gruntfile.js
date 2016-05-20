@@ -210,7 +210,7 @@ module.exports = function (grunt) {
 					network: ['ws://localhost:35729', '//www.google-analytics.com', '//stats.offlinetube.co.uk'],
 					fallback: ['/ /index.html']
 				},
-				src: ['index.*', 'appcache.html'],
+				src: ['index.html', 'index.js', 'css/*', 'svg/*', 'appcache.html'],
 				dest: 'appcache.manifest'
 			}
 		},
