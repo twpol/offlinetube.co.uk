@@ -14,6 +14,8 @@
     "grunt-execute": "0.2.2",
     "grunt-html2js": "0.3.5",
     "grunt-manifest": "https://github.com/gunta/grunt-manifest.git#0e5c181ea8656e290c2dfd38fcbc30d9849d8e37",
-    "load-grunt-tasks": "3.4.0"
+    "load-grunt-tasks": "3.4.0",
+    "lodash": "^4.12.0",
+    "promised-io": "^0.3.5"
   }
 }

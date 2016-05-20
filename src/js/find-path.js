@@ -51,12 +51,11 @@ define([
 		_(station1.routes)
 			.map(route)
 			.forEach(function (routeA) {
-				if (_.includes(station2.routes, routeA.key)) {
+				if (_.includes(station2.routes, routeA.index)) {
 					paths.push(makePath([station1, routeA, station2]));
 				}
-				_(routeA.stations)
+				_(routeA.interchangeStations)
 					.map(station)
-					.filter('interchange')
 					.reject(station1)
 					.reject(station2)
 					.forEach(function (stationA) {
@@ -64,12 +63,11 @@ define([
 							.map(route)
 							.reject(routeA)
 							.forEach(function (routeB) {
-								if (_.includes(station2.routes, routeB.key)) {
+								if (_.includes(station2.routes, routeB.index)) {
 									paths.push(makePath([station1, routeA, stationA, routeB, station2]));
 								}
-								_(routeB.stations)
+								_(routeB.interchangeStations)
 									.map(station)
-									.filter('interchange')
 									.reject(station1)
 									.reject(stationA)
 									.reject(station2)
@@ -78,7 +76,7 @@ define([
 											.map(route)
 											.reject(routeB)
 											.forEach(function (routeC) {
-												if (_.includes(station2.routes, routeC.key)) {
+												if (_.includes(station2.routes, routeC.index)) {
 													paths.push(makePath([station1, routeA, stationA, routeB, stationB, routeC, station2]));
 												}
 											});

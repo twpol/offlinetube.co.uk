@@ -3,9 +3,9 @@ define([
 	'data/index'
 ], function (_, data) {
 	return ['$scope', '$routeParams', function ($scope, $routeParams) {
-		$scope.network = _.first(data, { key: $routeParams.network });
-		$scope.route = $scope.network.routes[$routeParams.route];
-		$scope.line = $scope.network.lines[$routeParams.line];
+		$scope.network = _.find(data, { key: $routeParams.network });
+		$scope.route = _.find($scope.network.routes, { key: $routeParams.route });
+		$scope.line = _.find($scope.network.lines, { key: $routeParams.line });
 		$scope.stations = _.map($scope.route.stations, function (station) {
 			return $scope.network.stations[station];
 		});

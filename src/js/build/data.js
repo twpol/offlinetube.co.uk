@@ -1,35 +1,153 @@
-/* jshint node: true */
-var fs = require('fs');
-var baseDir = 'src/js/data/';
-var datasets = fs.readdirSync(baseDir);
-for (var i = 0; i < datasets.length; i++) {
-	var stat = fs.statSync(baseDir + datasets[i]);
-	if (!stat.isDirectory()) {
-		continue;
-	}
-	var build = [];
-	var types = fs.readdirSync(baseDir + datasets[i]);
-	for (var j = 0; j < types.length; j++) {
-		var stat = fs.statSync(baseDir + datasets[i] + '/' + types[j]);
-		if (!stat.isDirectory()) {
-			continue;
-		}
-		var typeFile = baseDir + datasets[i] + '/' + types[j] + '.js';
-		var typeFileFd = fs.openSync(typeFile, 'w');
-		var items = fs.readdirSync(baseDir + datasets[i] + '/' + types[j]);
-		fs.writeSync(typeFileFd, 'define([');
-		for (var k = 0; k < items.length; k++) {
-			fs.writeSync(typeFileFd, k === 0 ? '\n' : ',\n');
-			fs.writeSync(typeFileFd, '\t\'./' + types[j] + '/' + items[k].replace('.js', '') + '\'');
-		}
-		fs.writeSync(typeFileFd, '\n], function () {\n\treturn {');
-		for (var k = 0; k < items.length; k++) {
-			fs.writeSync(typeFileFd, k === 0 ? '\n' : ',\n');
-			fs.writeSync(typeFileFd, '\t\t\'' + items[k].replace('.js', '') + '\': arguments[' + k + ']');
-		}
-		fs.writeSync(typeFileFd, '\n\t};\n});');
-		fs.closeSync(typeFileFd);
-		build.push(items.length + ' ' + types[j]);
-	}
-	console.log('Built data for ' + datasets[i] + ': ' + build.join(', '));
-}
+var _ = require('lodash'),
+	fs = require('promised-io/fs');
+
+var inputDir = 'src/data/';
+var outputDir = 'src/js/data/';
+
+fs.readdir(inputDir).then(function (networkKeys) {
+	return Promise.all(networkKeys.filter(function (networkKey) {
+		return /^\w+$/.test(networkKey);
+	}).map(function (networkKey) {
+		var networkInfo = require('../../../' + inputDir + networkKey + '/index');
+		return Promise.all([fs.readdir(inputDir + networkKey + '/routes').then(function (routeKeys) {
+			console.log('%s: Reading %d routes...', networkKey, routeKeys.length);
+			return Promise.all(routeKeys.map(function (routeKey) {
+				return fs.readFile(inputDir + networkKey + '/routes/' + routeKey, 'utf8').then(JSON.parse).then(function (route) {
+					route.key = routeKey.replace(/\.json$/, '');
+					return route;
+				});
+			}));
+		}), fs.readdir(inputDir + networkKey + '/lines').then(function (lineKeys) {
+			console.log('%s: Reading %d lines...', networkKey, lineKeys.length);
+			return Promise.all(lineKeys.map(function (lineKey) {
+				return fs.readFile(inputDir + networkKey + '/lines/' + lineKey, 'utf8').then(JSON.parse).then(function (line) {
+					line.key = lineKey.replace(/\.json$/, '');
+					return line;
+				});
+			}));
+		})]).then(function (data) {
+			var routes = data[0];
+			var lines = data[1];
+
+			console.log('%s: Processing %d routes on %d lines...', networkKey, routes.length, lines.length);
+
+			var stationKeys = _(routes).map('stations').flatten().sort().uniq().value();
+			// console.log(stationNames);
+
+			var stationKeyToIndex = _(stationKeys).map(function (stationKey, stationIndex) {
+				return [stationKey, stationIndex];
+			}).fromPairs().value();
+			// console.log(stationKeyToIndex);
+
+			var routeKeys = _(routes).map('key').sort().uniq().value();
+			// console.log(routeKeys);
+
+			var routeKeyToIndex = _(routeKeys).map(function (routeKey, routeIndex) {
+				return [routeKey, routeIndex];
+			}).fromPairs().value();
+			// console.log(routeKeyToIndex);
+
+			var lineKeys = _(routes).map('line').sort().uniq().value();
+			// console.log(lineKeys);
+
+			var lineKeyToIndex = _(lineKeys).map(function (lineKey, lineIndex) {
+				return [lineKey, lineIndex];
+			}).fromPairs().value();
+			// console.log(lineKeyToIndex);
+
+			// Station --> Lines
+			// Station --> Routes
+			var stations = _.map(stationKeys, function (stationKey, stationIndex) {
+				var stationRoutes = _.filter(routes, function (route) {
+					return route.stations.indexOf(stationKey) !== -1;
+				});
+				return {
+					index: stationIndex,
+					key: stationKey,
+					name: networkInfo.formatStationName(stationKey),
+					lines: _(stationRoutes).map('line').uniq().map(function (lineKey) {
+						return lineKeyToIndex[lineKey];
+					}).value(),
+					routes: _(stationRoutes).map('key').map(function (routeKey) {
+						return routeKeyToIndex[routeKey];
+					}).value(),
+				};
+			});
+			// console.log(stations.slice(12, 15));
+
+			// Route --> Train
+			// Route --> Line
+			// Route --> Stations
+			// Route --> Stations (Interchanges)
+			routes = routes.map(function (route, routeIndex) {
+				var stationIndexes = _.map(route.stations, function (stationKey) {
+					return stationKeyToIndex[stationKey];
+				});
+
+				var viaName = route.via && route.via.length
+					? _.map(route.via, function (stationKey) {
+						return stations[stationKeyToIndex[stationKey]].name;
+					}).join(', ')
+					: '';
+				var fromName = stations[_.first(stationIndexes)].name;
+				var toName = stations[_.last(stationIndexes)].name;
+				var fromViaName = fromName + (viaName ? ' via ' + viaName : '');
+				var toViaName = toName + (viaName ? ' via ' + viaName : '');
+				var name = fromName + ' to ' + toViaName;
+
+				return {
+					index: routeIndex,
+					key: route.key,
+					name: name,
+					fromName: fromName,
+					fromViaName: fromViaName,
+					fromDirection: route.fromDirection,
+					toName: toName,
+					toViaName: toViaName,
+					toDirection: route.toDirection,
+					train: route.train,
+					line: lineKeyToIndex[route.line],
+					stations: stationIndexes,
+					interchangeStations: _.filter(stationIndexes, function (stationIndex) {
+						return stations[stationIndex].lines.length > 1;
+					}),
+				};
+			});
+			// console.log(routes.slice(5, 7));
+			// console.log(routes.slice(18, 19));
+
+			// Line --> Routes
+			var lines = lines.map(function (line, lineIndex) {
+				return {
+					index: lineIndex,
+					key: line.key,
+					name: line.name,
+					color: line.color,
+					textColor: line.textColor,
+					routes: _(routes).filter(function (route) {
+						return route.line === lineIndex;
+					}).map('index').value(),
+				};
+			});
+			// console.log(lines.slice(2, 4));
+
+			console.log('%s: Processed %d stations on %d routes on %d lines.', networkKey, stations.length, routes.length, lines.length);
+
+			return {
+				key: networkKey,
+				name: networkInfo.networkName,
+				stationKeyToIndex: stationKeyToIndex,
+				stations: stations,
+				routeKeyToIndex: routeKeyToIndex,
+				routes: routes,
+				lineKeyToIndex: lineKeyToIndex,
+				lines: lines,
+			};
+		}).then(function (network) {
+			var networkFileName = outputDir + networkKey + '.js';
+			var networkData = 'define(' + JSON.stringify(network, null, 4) + ');';
+			fs.writeFile(networkFileName, networkData);
+			console.log('%s: Written %d bytes to %s.', networkKey, networkData.length, networkFileName);
+		});
+	}));
+});

@@ -4,12 +4,12 @@ define([
 	'find-path'
 ], function (_, data, findPath) {
 	return ['$scope', '$routeParams', '$location', function ($scope, $routeParams, $location) {
-		$scope.network = _.first(data, { key: $routeParams.network });
-		$scope.stations = _.values($scope.network.stations);
+		$scope.network = _.find(data, { key: $routeParams.network });
+		$scope.stations = $scope.network.stations;
 		$scope.title = 'Plan a route'; // I don't like this
 		if ($routeParams.from || $routeParams.to) {
-			$scope.from = $scope.network.stations[$routeParams.from];
-			$scope.to = $scope.network.stations[$routeParams.to];
+			$scope.from = _.find($scope.network.stations, { key: $routeParams.from });
+			$scope.to = _.find($scope.network.stations, { key: $routeParams.to });
 			if ($scope.from && $scope.to) {
 				$scope.title = $scope.from.name + ' to ' + $scope.to.name; // I don't like this
 			}
@@ -38,39 +38,40 @@ define([
 						segments: [],
 						stops: [0, 0],
 						changes: (path.length - 3) / 2,
-						station: $scope.network.stations[_.last(path)].name
+						station: _.find($scope.network.stations, { key: _.last(path) }).name
 					};
 					_.forEach(path, function (segment, segmentIndex) {
 						if (_.isArray(segment)) {
 							var segmentStops = [1000, 0];
 							rv.segments.push({
-								station: $scope.network.stations[path[segmentIndex - 1]].name,
-								routes: _.uniqBy(_.map(segment, function (route) {
-									var fromIndex = $scope.network.routes[route].stations.indexOf(path[segmentIndex - 1]);
-									var toIndex = $scope.network.routes[route].stations.indexOf(path[segmentIndex + 1]);
+								station: _.find($scope.network.stations, { key: path[segmentIndex - 1] }).name,
+								routes: _.uniqBy(_.map(segment, function (routeKey) {
+									var route = _.find($scope.network.routes, { key: routeKey });
+									var fromIndex = route.stations.indexOf(_.find($scope.network.stations, { key: path[segmentIndex - 1] }).index);
+									var toIndex = route.stations.indexOf(_.find($scope.network.stations, { key: path[segmentIndex + 1] }).index);
 									var stops = Math.abs(fromIndex - toIndex);
 									segmentStops[0] = Math.min(segmentStops[0], stops);
 									segmentStops[1] = Math.max(segmentStops[1], stops);
 									if (fromIndex < toIndex) {
 										return {
-											line: $scope.network.lines[$scope.network.routes[route].line].name,
-											color: $scope.network.lines[$scope.network.routes[route].line].color,
-											textColor: $scope.network.lines[$scope.network.routes[route].line].textColor,
-											directionKey: $scope.network.routes[route].toDirection,
-											direction: directions[$scope.network.routes[route].toDirection],
-											directionShort: directionsShort[$scope.network.routes[route].toDirection],
-											to: $scope.network.routes[route].toViaName,
+											line: $scope.network.lines[route.line].name,
+											color: $scope.network.lines[route.line].color,
+											textColor: $scope.network.lines[route.line].textColor,
+											directionKey: route.toDirection,
+											direction: directions[route.toDirection],
+											directionShort: directionsShort[route.toDirection],
+											to: route.toViaName,
 											stops: toIndex - fromIndex
 										};
 									}
 									return {
-										line: $scope.network.lines[$scope.network.routes[route].line].name,
-										color: $scope.network.lines[$scope.network.routes[route].line].color,
-										textColor: $scope.network.lines[$scope.network.routes[route].line].textColor,
-										directionKey: $scope.network.routes[route].fromDirection,
-										direction: directions[$scope.network.routes[route].fromDirection],
-										directionShort: directionsShort[$scope.network.routes[route].fromDirection],
-										to: $scope.network.routes[route].fromViaName,
+										line: $scope.network.lines[route.line].name,
+										color: $scope.network.lines[route.line].color,
+										textColor: $scope.network.lines[route.line].textColor,
+										directionKey: route.fromDirection,
+										direction: directions[route.fromDirection],
+										directionShort: directionsShort[route.fromDirection],
+										to: route.fromViaName,
 										stops: fromIndex - toIndex
 									};
 								}), 'to')
