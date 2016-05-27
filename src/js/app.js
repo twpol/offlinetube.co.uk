@@ -6,6 +6,7 @@ define([
 	'library/angulartics/dist/angulartics-piwik.min',
 	'templates',
 	'controllers/index',
+	'controllers/contribute',
 	'controllers/network',
 	'controllers/line',
 	'controllers/station',
@@ -19,6 +20,7 @@ define([
 	_angulartics_piwik_,
 	_templates_,
 	indexController,
+	contributeController,
 	networkController,
 	lineController,
 	stationController,
@@ -33,6 +35,7 @@ define([
 		'templates-template'
 	])
 		.controller('IndexController', indexController)
+		.controller('ContributeController', contributeController)
 		.controller('NetworkController', networkController)
 		.controller('LineController', lineController)
 		.controller('StationController', stationController)
@@ -43,6 +46,10 @@ define([
 				.when('/', {
 					templateUrl: 'html/index.html',
 					controller: 'IndexController'
+				})
+				.when('/contribute', {
+					templateUrl: 'html/contribute.html',
+					controller: 'ContributeController'
 				})
 				.when('/network/:network', {
 					templateUrl: 'html/network.html',

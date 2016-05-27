@@ -1,0 +1,18 @@
+extends layout.jade
+block title
+	| Contribute
+block breadcrumb
+	li
+		a(href="/") Offline Tube
+	li.active
+		| Contribute
+block content
+	p Contribute to Offline Tube by collecting journey and interchange times, train lengths, and locations of exits and interchanges.
+	div.contributor-status(ng-show="contributor")
+		p You have contributor mode enabled.
+		p
+			a.disable(ng-click="setContributor(false)") Disable
+	div.contributor-status(ng-hide="contributor")
+		p You do not have contributor mode enabled.
+		p
+			a.enable(ng-click="setContributor(true)") Enable

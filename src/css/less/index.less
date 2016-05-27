@@ -90,6 +90,22 @@ body {
 			.alert-danger();
 		}
 		
+		> .contributor-status {
+			p {
+				font-weight: bold;
+			}
+			a {
+				.btn();
+				
+				&.enable {
+					.btn-success();
+				}
+				&.disable {
+					.btn-danger();
+				}
+			}
+		}
+		
 		> form.plan-a-route {
 			@media (min-width: @screen-sm-min) {
 				.panel();
