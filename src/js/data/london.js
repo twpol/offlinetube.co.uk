@@ -859,10 +859,12 @@ define({
             "key": "canary-wharf",
             "name": "Canary Wharf",
             "lines": [
-                4
+                4,
+                6
             ],
             "routes": [
                 4,
+                20,
                 23
             ]
         },
@@ -4395,7 +4397,8 @@ define({
                 151
             ],
             "interchangeStations": [
-                13
+                13,
+                42
             ]
         },
         {
@@ -5259,6 +5262,7 @@ define({
                 156,
                 23,
                 41,
+                42,
                 174,
                 43,
                 275,
@@ -5273,6 +5277,7 @@ define({
                 284,
                 268,
                 156,
+                42,
                 43,
                 275,
                 241
@@ -5379,7 +5384,8 @@ define({
                 151
             ],
             "interchangeStations": [
-                241
+                241,
+                42
             ]
         },
         {
