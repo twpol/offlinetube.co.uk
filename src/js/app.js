@@ -12,7 +12,7 @@ define([
 	'controllers/route',
 	'controllers/plan'
 ], function (
-	_angular_,
+	angular,
 	_angularRoute_,
 	_angulartics_,
 	_angulartics_ga_,
@@ -25,7 +25,7 @@ define([
 	routeController,
 	planController
 ) {
-	angular.module('TubeApp', [
+	return angular.module('TubeApp', [
 		'ngRoute',
 		'angulartics',
 		'angulartics.google.analytics',
