@@ -216,7 +216,7 @@ module.exports = function (grunt) {
 		},
 		clean: {
 			dev: {
-				src: ['src/html/*.html', 'src/css/index.css', 'src/js/data/*/*.js']
+				src: ['src/html/*.html', 'src/css/index.css', 'src/js/data/*.js', '!src/js/data/index.js']
 			},
 			live: {
 				src: ['src/js/templates.js', 'css', 'png', 'svg', '*.html', 'index.*', 'appcache.*']

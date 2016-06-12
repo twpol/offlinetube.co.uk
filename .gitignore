@@ -3,6 +3,7 @@
 /src/css/*.css
 /src/html/*.html
 /src/js/data/*.js
+!/src/js/data/index.js
 /src/js/templates.js
 /css
 /png
