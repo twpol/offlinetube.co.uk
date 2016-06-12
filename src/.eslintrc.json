@@ -1,0 +1,10 @@
+{
+	"env": {
+		"browser": true,
+		"amd": true
+	},
+	"extends": "eslint:recommended",
+	"rules": {
+		"indent": 1
+	}
+}
