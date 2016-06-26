@@ -1,6 +1,7 @@
 require.config({
 	paths: {
-		library: '../../bower_components'
+		library: '../../bower_components',
+		jquery: '../../bower_components/jquery/dist/jquery'
 	},
 	shim: {
 		'library/angular/angular': {
@@ -10,7 +11,12 @@ require.config({
 		'library/angulartics/dist/angulartics.min': ['library/angular/angular'],
 		'library/angulartics/dist/angulartics-ga.min': ['library/angular/angular'],
 		'library/angulartics/dist/angulartics-piwik.min': ['library/angular/angular'],
-		'templates': ['library/angular/angular']
+		'templates': ['library/angular/angular'],
+		'jquery': {
+			exports: 'jQuery'
+		},
+		'library/bootstrap/js/transition': ['jquery'],
+		'library/bootstrap/js/collapse': ['jquery']
 	}
 });
 define([

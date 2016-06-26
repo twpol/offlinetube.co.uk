@@ -19,7 +19,7 @@
 //@import "../../../bower_components/bootstrap/less/buttons.less";
 
 // Components
-//@import "../../../bower_components/bootstrap/less/component-animations.less";
+@import "../../../bower_components/bootstrap/less/component-animations.less";
 //@import "../../../bower_components/bootstrap/less/dropdowns.less";
 //@import "../../../bower_components/bootstrap/less/button-groups.less";
 //@import "../../../bower_components/bootstrap/less/input-groups.less";
@@ -102,6 +102,45 @@ body {
 				}
 				&.disable {
 					.btn-danger();
+				}
+			}
+		}
+		
+		ol.journey {
+			list-style: none;
+			padding: 0;
+			
+			ul.segments {
+				list-style: none;
+				padding: 0;
+				
+				> li {
+					input {
+						.form-control();
+					}
+					ol.stations {
+						list-style: none;
+						padding: 0;
+						
+						> li {
+							.make-row();
+							
+							> .station-name {
+								.make-xs-column(12);
+							}
+							
+							> .contribution {
+								.make-xs-column(4);
+								.make-sm-column(3);
+								.make-md-column(2);
+								.make-lg-column(2);
+								
+								> input {
+									.form-control();
+								}
+							}
+						}
+					}
 				}
 			}
 		}

@@ -16,3 +16,7 @@ block content
 		p You do not have contributor mode enabled.
 		p
 			a.enable(ng-click="setContributor(true)") Enable
+	p(ng-show="records.length") Your records:
+	ol
+		li(ng-repeat="record in records")
+			a(href="/network/{{record.journey.network}}/plan/record?journey={{record.journey}}") {{record.journey.time | date:'yyyy-MM-dd HH:mm:ss'}} {{record.journey.from.name}} to {{record.journey.to.name}}
