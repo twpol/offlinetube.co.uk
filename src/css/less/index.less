@@ -22,7 +22,7 @@
 @import "../../../bower_components/bootstrap/less/component-animations.less";
 //@import "../../../bower_components/bootstrap/less/dropdowns.less";
 //@import "../../../bower_components/bootstrap/less/button-groups.less";
-//@import "../../../bower_components/bootstrap/less/input-groups.less";
+@import "../../../bower_components/bootstrap/less/input-groups.less";
 //@import "../../../bower_components/bootstrap/less/navs.less";
 //@import "../../../bower_components/bootstrap/less/navbar.less";
 //@import "../../../bower_components/bootstrap/less/breadcrumbs.less";
@@ -115,28 +115,63 @@ body {
 				padding: 0;
 				
 				> li {
-					input {
+					input[type=text] {
 						.form-control();
 					}
+					
+					button {
+						.btn();
+						.btn-default();
+					}
+					
 					ol.stations {
 						list-style: none;
 						padding: 0;
 						
 						> li {
 							.make-row();
-							
+
+							> * {
+								margin-bottom: @padding-large-vertical;
+							}
+
 							> .station-name {
 								.make-xs-column(12);
 							}
-							
-							> .contribution {
-								.make-xs-column(4);
-								.make-sm-column(3);
-								.make-md-column(2);
-								.make-lg-column(2);
-								
+
+							> .contribution.time,
+							> .contribution.exits {
+								.make-xs-column(1);
+								width: 11.44em;
+							}
+
+							> .contribution.notes {
+								.make-xs-column(12);
+							}
+
+							> .contribution.time > div {
+								&:extend(.input-group);
+
 								> input {
-									.form-control();
+									&:extend(.input-group .form-control);
+
+									&:first-child {
+										&:extend(.input-group .form-control:first-child);
+									}
+								}
+
+								> span {
+									&:extend(.input-group-btn);
+
+									> button {
+										&:extend(.input-group-btn > .btn);
+									}
+
+									&:last-child {
+										> button {
+											&:extend(.input-group-btn:last-child > .btn);
+										}
+									}
 								}
 							}
 						}

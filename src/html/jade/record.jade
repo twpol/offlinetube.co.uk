@@ -21,9 +21,12 @@ block content
 						ol.stations
 							li(ng-repeat="station in route.stations")
 								h4.station-name {{station.name}}
-								div.contribution
-									input.time(type="text" placeholder="Time: hhmm" ng-model="station.time")
-								div.contribution
-									input.exits(type="text" placeholder="Exits: 123456" ng-model="station.exits")
-								div.contribution
+								div.contribution.time
+									div
+										input.time(type="text" placeholder="Time" ng-model="station.time")
+										span
+											button(ng-click="setTime(station)") Now
+								div.contribution.exits
+									input.exits(type="text" placeholder="Exits" ng-model="station.exits")
+								div.contribution.notes
 									input.notes(type="text" placeholder="Notes" ng-model="station.notes")

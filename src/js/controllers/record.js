@@ -45,9 +45,21 @@ define([
 			})
 		};
 
+		function d2(number) {
+			return number < 10 ? '0' + number : '' + number;
+		}
+
+		$scope.setTime = function (station) {
+			if (station.time && !confirm('Time for ' + station.name + ' already set to ' + station.time + '. Overwrite it?')) {
+				return;
+			}
+			var date = new Date();
+			station.time = d2(date.getHours()) + d2(date.getMinutes()) + d2(date.getSeconds());
+		};
+
 		var savedRecord = JSON.parse(localStorage['record-' + journey.key] || '{}');
 		$scope.record = _.merge(savedRecord, $scope.record);
-		$scope.$watch(function() {
+		$scope.$watch(function () {
 			localStorage['record-' + journey.key] = JSON.stringify($scope.record);
 		});
 
