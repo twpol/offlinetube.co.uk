@@ -13,10 +13,10 @@ require.config({
 		'templates': ['library/angular/angular']
 	}
 });
-/* jshint unused: false */
 define([
+	'library/angular/angular',
 	'app'
-], function () {
+], function (angular) {
 	angular.bootstrap(document, ['TubeApp']);
 
 	window.addEventListener('message', function (event) {

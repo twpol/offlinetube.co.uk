@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 define([
 	'library/lodash/lodash'
 ], function (_) {

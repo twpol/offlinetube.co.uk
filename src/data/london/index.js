@@ -1,3 +1,5 @@
+/* eslint-env node */
+
 exports.networkName = 'London Underground';
 
 exports.formatStationName = function (name) {

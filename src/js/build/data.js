@@ -1,3 +1,6 @@
+/* eslint-env node */
+/* eslint-disable no-console */
+/* global Promise: false */
 var _ = require('lodash'),
 	fs = require('promised-io/fs');
 
@@ -70,7 +73,7 @@ fs.readdir(inputDir).then(function (networkKeys) {
 					}).value(),
 					routes: _(stationRoutes).map('key').map(function (routeKey) {
 						return routeKeyToIndex[routeKey];
-					}).value(),
+					}).value()
 				};
 			});
 			// console.log(stations.slice(12, 15));
@@ -110,14 +113,14 @@ fs.readdir(inputDir).then(function (networkKeys) {
 					stations: stationIndexes,
 					interchangeStations: _.filter(stationIndexes, function (stationIndex) {
 						return stations[stationIndex].lines.length > 1;
-					}),
+					})
 				};
 			});
 			// console.log(routes.slice(5, 7));
 			// console.log(routes.slice(18, 19));
 
 			// Line --> Routes
-			var lines = lines.map(function (line, lineIndex) {
+			lines = lines.map(function (line, lineIndex) {
 				return {
 					index: lineIndex,
 					key: line.key,
@@ -126,7 +129,7 @@ fs.readdir(inputDir).then(function (networkKeys) {
 					textColor: line.textColor,
 					routes: _(routes).filter(function (route) {
 						return route.line === lineIndex;
-					}).map('index').value(),
+					}).map('index').value()
 				};
 			});
 			// console.log(lines.slice(2, 4));
@@ -141,11 +144,11 @@ fs.readdir(inputDir).then(function (networkKeys) {
 				routeKeyToIndex: routeKeyToIndex,
 				routes: routes,
 				lineKeyToIndex: lineKeyToIndex,
-				lines: lines,
+				lines: lines
 			};
 		}).then(function (network) {
 			var networkFileName = outputDir + networkKey + '.js';
-			var networkData = 'define(' + JSON.stringify(network, null, 4) + ');';
+			var networkData = 'define(' + JSON.stringify(network, null, '\t') + ');';
 			fs.writeFile(networkFileName, networkData);
 			console.log('%s: Written %d bytes to %s.', networkKey, networkData.length, networkFileName);
 		});

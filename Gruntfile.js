@@ -62,7 +62,7 @@ module.exports = function (grunt) {
 			},
 			grunt: {
 				files: '<%= files.grunt %>',
-				tasks: ['jshint:grunt', 'build:dev']
+				tasks: ['eslint:grunt', 'build:dev']
 			},
 			data: {
 				files: ['src/<%= files.data %>', 'src/js/build/data.js'],
@@ -77,52 +77,11 @@ module.exports = function (grunt) {
 				tasks: ['build:less']
 			}
 		},
-		jshint: {
-			options: {
-				// grunt-contrib-jshint
-				force: true,
-				// JSHint
-				bitwise: true,
-				curly: true,
-				eqeqeq: true,
-				es3: true,
-				forin: true,
-				freeze: true,
-				funcscope: true,
-				futurehostile: true,
-				//globalstrict: true,
-				iterator: true,
-				latedef: true,
-				noarg: true,
-				nocomma: true,
-				nonbsp: true,
-				nonew: true,
-				notypeof: true,
-				shadow: true,
-				singleGroups: true,
-				undef: true,
-				unused: true
-			},
+		eslint: {
 			grunt: {
-				options: {
-					node: true,
-					globals: {
-						require: true,
-						module: true
-					}
-				},
 				src: '<%= files.grunt %>'
 			},
 			js: {
-				options: {
-					browser: true,
-					devel: true,
-					globals: {
-						define: true,
-						require: true,
-						angular: true
-					}
-				},
 				files: {
 					cwd: 'src',
 					src: '<%= files.js %>'
@@ -151,6 +110,9 @@ module.exports = function (grunt) {
 		},
 		html2js: {
 			template: {
+				options: {
+					fileHeaderString: '/* eslint-disable indent */\n/* global angular */'
+				},
 				src: 'src/<%= files.template %>',
 				dest: 'src/js/templates.js'
 			}
@@ -224,6 +186,7 @@ module.exports = function (grunt) {
 		}
 	});
 	require('load-grunt-tasks')(grunt);
+	grunt.loadNpmTasks("gruntify-eslint"); // This package is broken.
 	// For dev
 	grunt.registerTask('build:data', ['execute:data']);
 	grunt.registerTask('build:jade', ['jade:jade']);
@@ -231,7 +194,7 @@ module.exports = function (grunt) {
 	grunt.registerTask('build:less', ['less:less']);
 	grunt.registerTask('build:dev', ['build:data', 'build:jade', 'build:template', 'build:less']);
 	// For live
-	grunt.registerTask('build:js', ['jshint:js', 'requirejs:js']);
+	grunt.registerTask('build:js', ['eslint:js', 'requirejs:js']);
 	grunt.registerTask('build:css', ['copy:css']);
 	grunt.registerTask('build:png', ['copy:png']);
 	grunt.registerTask('build:svg', ['copy:svg']);
