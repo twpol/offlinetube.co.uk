@@ -4,6 +4,10 @@ define([
 ], function (_, data) {
 	return ['$scope', function ($scope) {
 		$scope.contributor = !!localStorage.contributor;
+		// Estimated assuming ~5MB of storage available.
+		var charactersStored = JSON.stringify(localStorage).length;
+		$scope.storageUsedKB = (charactersStored * 2 / 1024).toFixed(1);
+		$scope.storageUsedPC = (charactersStored * 200 / 5242880).toFixed(1);
 		$scope.records = _(localStorage).keys().filter(function (key) {
 			return /^record-\d{13,}-\d+$/.test(key);
 		}).map(function (key) {

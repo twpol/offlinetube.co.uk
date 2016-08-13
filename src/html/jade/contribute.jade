@@ -16,6 +16,7 @@ block content
 		p You do not have contributor mode enabled.
 		p
 			a.enable(ng-click="setContributor(true)") Enable
+	p(ng-show="storageUsedKB") You are using approximately {{storageUsedKB}}&nbsp;KB of storage space for your contributions. This is {{storageUsedPC}}&nbsp;% of the expected 5.0&nbsp;MB available for this site.
 	p(ng-show="records.length") Your records:
 	ol
 		li(ng-repeat="record in records")
