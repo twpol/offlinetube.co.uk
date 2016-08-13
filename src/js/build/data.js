@@ -87,6 +87,21 @@ fs.readdir(inputDir).then(function (networkKeys) {
 					return stationKeyToIndex[stationKey];
 				});
 
+				var journeyTimes = [];
+				if (typeof route.journeyTimes !== 'undefined') {
+					journeyTimes = _.map(route.journeyTimes, function (time) {
+						return time || 2;
+					});
+					if (route.stations.length - 1 !== journeyTimes.length) {
+						console.warn('%s: %s: Expected %d journey times; got %d', networkKey, route.key, route.stations.length - 1, journeyTimes.length);
+					}
+				}
+				if (route.stations.length - 1 !== journeyTimes.length) {
+					journeyTimes = route.stations.map(function () {
+						return 2;
+					}).slice(1);
+				}
+
 				var viaName = route.via && route.via.length
 					? _.map(route.via, function (stationKey) {
 						return stations[stationKeyToIndex[stationKey]].name;
@@ -113,7 +128,8 @@ fs.readdir(inputDir).then(function (networkKeys) {
 					stations: stationIndexes,
 					interchangeStations: _.filter(stationIndexes, function (stationIndex) {
 						return stations[stationIndex].lines.length > 1;
-					})
+					}),
+					journeyTimes: journeyTimes
 				};
 			});
 			// console.log(routes.slice(5, 7));

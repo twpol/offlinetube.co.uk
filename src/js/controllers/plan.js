@@ -37,12 +37,14 @@ define([
 					var rv = {
 						segments: [],
 						stops: [0, 0],
+						time: [0, 0],
 						changes: (path.length - 3) / 2,
 						station: _.find($scope.network.stations, { key: _.last(path) }).name
 					};
 					_.forEach(path, function (segment, segmentIndex) {
 						if (_.isArray(segment)) {
 							var segmentStops = [1000, 0];
+							var segmentTime = [1000, 0];
 							rv.segments.push({
 								station: _.find($scope.network.stations, { key: path[segmentIndex - 1] }).name,
 								routes: _.uniqBy(_.map(segment, function (routeKey) {
@@ -50,8 +52,15 @@ define([
 									var fromIndex = route.stations.indexOf(_.find($scope.network.stations, { key: path[segmentIndex - 1] }).index);
 									var toIndex = route.stations.indexOf(_.find($scope.network.stations, { key: path[segmentIndex + 1] }).index);
 									var stops = Math.abs(fromIndex - toIndex);
+									var stopMin = Math.min(fromIndex, toIndex);
+									var stopMax = Math.max(fromIndex, toIndex);
+									var time = _.reduce(route.journeyTimes.slice(stopMin, stopMax), function (sum, time) {
+										return sum + time;
+									}, 0);
 									segmentStops[0] = Math.min(segmentStops[0], stops);
 									segmentStops[1] = Math.max(segmentStops[1], stops);
+									segmentTime[0] = Math.min(segmentTime[0], time);
+									segmentTime[1] = Math.max(segmentTime[1], time);
 									if (fromIndex < toIndex) {
 										return {
 											line: $scope.network.lines[route.line].name,
@@ -78,12 +87,14 @@ define([
 							});
 							rv.stops[0] += segmentStops[0];
 							rv.stops[1] += segmentStops[1];
+							rv.time[0] += segmentTime[0];
+							rv.time[1] += segmentTime[1];
 						}
 					});
 					// 4 minutes to enter station (1), wait for train (2), exit station (1)
 					// 2 minutes per stop
 					// 4 minutes to interchange (2) and wait for train (2)
-					rv.minutes = 4 + rv.stops[0] * 2 + rv.changes * 4;
+					rv.minutes = 4 + rv.time[0] + rv.changes * 4;
 					return rv;
 				});
 			}
