@@ -17,5 +17,19 @@
 		"london-city-airport",
 		"king-george-v",
 		"woolwich-arsenal"
+	],
+	"journeyTimes": [
+		4,
+		2,
+		2,
+		3,
+		2,
+		1,
+		2,
+		3,
+		2,
+		2,
+		2,
+		3
 	]
 }
