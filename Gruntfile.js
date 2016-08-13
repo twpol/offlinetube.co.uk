@@ -5,7 +5,7 @@ module.exports = function (grunt) {
 		files: {
 			grunt: ['Gruntfile.js'],
 			// For development and live
-			data: ['js/data/*/*/**/*.js'],
+			data: ['src/data/**/*'],
 			jade: ['html/jade/*.jade'],
 			template: ['html/*.html'],
 			less: ['css/less/index.less'],
@@ -65,7 +65,7 @@ module.exports = function (grunt) {
 				tasks: ['eslint:grunt', 'build:dev']
 			},
 			data: {
-				files: ['src/<%= files.data %>', 'src/js/build/data.js'],
+				files: ['<%= files.data %>', 'src/js/build/data.js'],
 				tasks: ['build:data']
 			},
 			jade: {
