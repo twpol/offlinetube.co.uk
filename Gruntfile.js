@@ -169,7 +169,7 @@ module.exports = function (grunt) {
 			manifest: {
 				options: {
 					basePath: '.',
-					network: ['ws://localhost:35729', '//www.google-analytics.com', '//stats.offlinetube.co.uk'],
+					network: ['ws://localhost:35729', '//www.google-analytics.com', '//stats.offlinetube.co.uk', '/api'],
 					fallback: ['/ /index.html']
 				},
 				src: ['index.html', 'index.js', 'css/*', 'svg/*', 'appcache.html'],

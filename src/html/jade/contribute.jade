@@ -12,6 +12,10 @@ block content
 		p You have contributor mode enabled.
 		p
 			a.disable(ng-click="setContributor(false)") Disable
+		p(ng-hide="uploading")
+			a.upload(ng-click="upload()") Upload
+		div.upload-progress(ng-show="uploading")
+			div(ng-style="{width: uploadingProgress}") {{uploadingProgress}}
 	div.contributor-status(ng-hide="contributor")
 		p You do not have contributor mode enabled.
 		p
