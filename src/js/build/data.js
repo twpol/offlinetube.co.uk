@@ -5,7 +5,8 @@ var _ = require('lodash'),
 	fs = require('promised-io/fs');
 
 var inputDir = 'src/data/';
-var outputDir = 'src/js/data/';
+var outputDirJson = 'src/json/data/';
+var outputDirJs = 'src/js/data/';
 
 fs.readdir(inputDir).then(function (networkKeys) {
 	return Promise.all(networkKeys.filter(function (networkKey) {
@@ -163,8 +164,13 @@ fs.readdir(inputDir).then(function (networkKeys) {
 				lines: lines
 			};
 		}).then(function (network) {
-			var networkFileName = outputDir + networkKey + '.js';
-			var networkData = 'define(' + JSON.stringify(network, null, '\t') + ');';
+			var networkFileName = outputDirJson + networkKey + '.json';
+			var networkData = JSON.stringify(network, null, '\t');
+			fs.writeFile(networkFileName, networkData);
+			console.log('%s: Written %d bytes to %s.', networkKey, networkData.length, networkFileName);
+
+			networkFileName = outputDirJs + networkKey + '.js';
+			networkData = 'define(' + JSON.stringify(network, null, '\t') + ');';
 			fs.writeFile(networkFileName, networkData);
 			console.log('%s: Written %d bytes to %s.', networkKey, networkData.length, networkFileName);
 		});
