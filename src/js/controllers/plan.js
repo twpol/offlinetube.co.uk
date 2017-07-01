@@ -4,6 +4,7 @@ define([
 	'find-path'
 ], function (_, data, findPath) {
 	return ['$scope', '$routeParams', '$location', function ($scope, $routeParams, $location) {
+		$scope.contributor = !!localStorage.contributor;
 		$scope.network = _.find(data, { key: $routeParams.network });
 		$scope.stations = $scope.network.stations;
 		$scope.title = 'Plan a route'; // I don't like this
@@ -33,9 +34,15 @@ define([
 				};
 
 				var paths = findPath($scope.network, $scope.from, $scope.to);
-				$scope.paths = _.map(paths, function (path) {
+				var journeyKey = Date.now();
+				$scope.paths = _.map(paths, function (path, pathIndex) {
 					var rv = {
 						segments: [],
+						journey: {
+							key: [journeyKey, pathIndex + 1].join('-'),
+							network: $scope.network.key,
+							segments: path
+						},
 						stops: [0, 0],
 						time: [0, 0],
 						changes: (path.length - 3) / 2,

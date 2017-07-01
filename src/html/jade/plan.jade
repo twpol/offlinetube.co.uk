@@ -31,6 +31,9 @@ block content
 					|  and 
 					span(ng-show="path.stops[0] !== path.stops[1]") {{path.stops[0]}} - 
 					ng-pluralize(count="path.stops[1]" when="{'1': '1 stop', 'other': '{{path.stops[1]}} stops'}") 
+					span.contribute(ng-show="contributor")
+						| 
+						a(href="/network/{{network.key}}/plan/record?journey={{path.journey}}") Record this journey
 				li(ng-repeat="segment in path.segments")
 					| At 
 					strong {{segment.station}}

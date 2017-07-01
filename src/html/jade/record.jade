@@ -1,0 +1,32 @@
+extends layout.jade
+block title
+	| Record journey
+block breadcrumb
+	li
+		a(href="/") Offline Tube
+	li
+		a(href="network/{{network.key}}") {{network.name}}
+	li.active
+		| Record a journey
+block content
+	p Journey data for {{from.name}} to {{to.name}} with key "{{record.journey.key}}".
+	ol.journey
+		li(ng-repeat="segment in record.segments")
+			h2(ng-show="segment.name") {{segment.name}}
+			ul.segments(ng-hide="segment.name")
+				li(ng-repeat="route in segment.routes")
+					h3(data-toggle="collapse" data-target="#route-{{$parent.$index}}-{{$index}}") {{route.line}} towards {{route.name}}
+					div.collapse(id="route-{{$parent.$index}}-{{$index}}")
+						input.notes(type="text" placeholder="Route notes" ng-model="route.notes")
+						ol.stations
+							li(ng-repeat="station in route.stations")
+								h4.station-name {{station.name}}
+								div.contribution.time
+									div
+										input.time(type="text" placeholder="Time" ng-model="station.time")
+										span
+											button(ng-click="setTime(station)") Now
+								div.contribution.exits
+									input.exits(type="text" placeholder="Exits" ng-model="station.exits")
+								div.contribution.notes
+									input.notes(type="text" placeholder="Notes" ng-model="station.notes")
