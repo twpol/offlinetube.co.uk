@@ -9,3 +9,11 @@ block content
 	ul.networks
 		li(ng-repeat="network in networks")
 			a(href="network/{{network.key}}") {{network.name}}
+	p(ng-hide="contributor")
+		| Would you like to 
+		a(href="/contribute") contribute to Offline Tube
+		| ? Collect journey and interchange times, train lengths, and locations of exits and interchanges.
+	p(ng-show="contributor")
+		| Review your 
+		a(href="/contribute") contributions to Offline Tube
+		| .

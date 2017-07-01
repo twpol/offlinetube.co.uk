@@ -19,3 +19,7 @@ block content
 	ul.stations
 		li(ng-repeat="station in stations | orderBy:'name'")
 			a(href="network/{{network.key}}/station/{{station.key}}") {{station.name}}
+	p(ng-hide="contributor")
+		| Would you like to 
+		a(href="/contribute") contribute to Offline Tube
+		| ? Collect journey and interchange times, train lengths, and locations of exits and interchanges.

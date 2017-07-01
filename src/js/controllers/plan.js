@@ -5,6 +5,7 @@ define([
 ], function (_, data, findPath) {
 	return ['$scope', '$routeParams', '$location', function ($scope, $routeParams, $location) {
 		$scope.contributor = !!localStorage.contributor;
+		$scope.routeLimit = $scope.contributor ? 100 : 10;
 		$scope.network = _.find(data, { key: $routeParams.network });
 		$scope.stations = $scope.network.stations;
 		$scope.title = 'Plan a route'; // I don't like this

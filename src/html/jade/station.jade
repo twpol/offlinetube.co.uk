@@ -25,3 +25,7 @@ block content
 			a(href="network/{{network.key}}/line/{{route.line.key}}/route/{{route.key}}")
 				span.line-icon(ng-style="{'background-color': '{{route.line.color}}', 'color': '{{route.line.textColor}}'}") &#x1F687;
 				|  {{route.name}}
+	p(ng-hide="contributor")
+		| Would you like to 
+		a(href="/contribute") contribute to Offline Tube
+		| ? Collect journey and interchange times, train lengths, and locations of exits and interchanges.

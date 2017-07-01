@@ -23,7 +23,7 @@ block content
 			div
 				button.form-control(ng-click="switchDirection()") Switch direction
 	ul.paths
-		li(ng-repeat="path in paths | orderBy:'minutes' | limitTo:10")
+		li(ng-repeat="path in paths | orderBy:'minutes' | limitTo:routeLimit")
 			ol.segments
 				li.summary
 					| {{path.minutes}} minutes: 
@@ -56,3 +56,7 @@ block content
 				li
 					| Arrive at 
 					strong {{path.station}}
+	p(ng-hide="contributor")
+		| Would you like to 
+		a(href="/contribute") contribute to Offline Tube
+		| ? Collect journey and interchange times, train lengths, and locations of exits and interchanges.

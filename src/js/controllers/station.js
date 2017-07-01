@@ -3,6 +3,7 @@ define([
 	'data/index'
 ], function (_, data) {
 	return ['$scope', '$routeParams', function ($scope, $routeParams) {
+		$scope.contributor = !!localStorage.contributor;
 		$scope.network = _.find(data, { key: $routeParams.network });
 		$scope.line = _.find($scope.network.lines, { key: $routeParams.line });
 		$scope.station = _.find($scope.network.stations, { key: $routeParams.station });
