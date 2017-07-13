@@ -1163,15 +1163,16 @@ grunt-contrib-clean@1.1.0:
     async "^1.5.2"
     rimraf "^2.5.1"
 
-grunt-contrib-connect@0.11.2:
-  version "0.11.2"
-  resolved "https://registry.yarnpkg.com/grunt-contrib-connect/-/grunt-contrib-connect-0.11.2.tgz#1c0a0707d3b328d9cf3b4b490eb84c495d936aed"
+grunt-contrib-connect@1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/grunt-contrib-connect/-/grunt-contrib-connect-1.0.2.tgz#5cf933b91a67386044273c0b2444603cd98879ba"
   dependencies:
-    async "^0.9.0"
+    async "^1.5.2"
     connect "^3.4.0"
     connect-livereload "^0.5.0"
+    http2 "^3.3.4"
     morgan "^1.6.1"
-    opn "^1.0.0"
+    opn "^4.0.0"
     portscanner "^1.0.0"
     serve-index "^1.7.1"
     serve-static "^1.10.0"
@@ -1359,6 +1360,10 @@ http-signature@~1.1.0:
     assert-plus "^0.2.0"
     jsprim "^1.2.2"
     sshpk "^1.7.0"
+
+http2@^3.3.4:
+  version "3.3.6"
+  resolved "https://registry.yarnpkg.com/http2/-/http2-3.3.6.tgz#7df06227e02b5b5a5841deea08239b3198d04bec"
 
 iconv-lite@^0.4.17, iconv-lite@~0.4.13:
   version "0.4.18"
@@ -2020,9 +2025,12 @@ onetime@^2.0.0:
   dependencies:
     mimic-fn "^1.0.0"
 
-opn@^1.0.0:
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/opn/-/opn-1.0.2.tgz#b909643346d00a1abc977a8b96f3ce3c53d5cf5f"
+opn@^4.0.0:
+  version "4.0.2"
+  resolved "https://registry.yarnpkg.com/opn/-/opn-4.0.2.tgz#7abc22e644dff63b0a96d5ab7f2790c0f01abc95"
+  dependencies:
+    object-assign "^4.0.1"
+    pinkie-promise "^2.0.0"
 
 optimist@~0.3.5:
   version "0.3.7"
