@@ -8,7 +8,7 @@
     "grunt-contrib-connect": "1.0.2",
     "grunt-contrib-copy": "0.8.2",
     "grunt-contrib-jade": "1.0.0",
-    "grunt-contrib-less": "1.2.0",
+    "grunt-contrib-less": "1.4.1",
     "grunt-contrib-requirejs": "0.4.4",
     "grunt-contrib-watch": "0.6.1",
     "grunt-execute": "0.2.2",
