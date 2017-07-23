@@ -1556,9 +1556,9 @@ levn@^0.3.0, levn@~0.3.0:
     prelude-ls "~1.1.2"
     type-check "~0.3.2"
 
-load-grunt-tasks@3.4.0:
-  version "3.4.0"
-  resolved "https://registry.yarnpkg.com/load-grunt-tasks/-/load-grunt-tasks-3.4.0.tgz#ead4b02a84e8537f402f67169199109dc266c670"
+load-grunt-tasks@3.5.2:
+  version "3.5.2"
+  resolved "https://registry.yarnpkg.com/load-grunt-tasks/-/load-grunt-tasks-3.5.2.tgz#0728561180fd20ff8a6927505852fc58aaea0c88"
   dependencies:
     arrify "^1.0.0"
     multimatch "^2.0.0"
