@@ -10,7 +10,7 @@
     "grunt-contrib-jade": "1.0.0",
     "grunt-contrib-less": "1.4.1",
     "grunt-contrib-requirejs": "1.0.0",
-    "grunt-contrib-watch": "0.6.1",
+    "grunt-contrib-watch": "1.0.0",
     "grunt-execute": "0.2.2",
     "grunt-html2js": "0.3.5",
     "grunt-manifest": "https://github.com/gunta/grunt-manifest.git#0e5c181ea8656e290c2dfd38fcbc30d9849d8e37",
