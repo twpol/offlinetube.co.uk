@@ -203,5 +203,5 @@ module.exports = function (grunt) {
 	grunt.registerTask('build:live', ['build:js', 'build:css', 'build:png', 'build:svg', 'build:html', 'build:manifest']);
 	// General
 	grunt.registerTask('build', ['build:dev', 'build:live']);
-	grunt.registerTask('default', ['watch']);
+	grunt.registerTask('default', ['build:dev', 'watch']);
 };
