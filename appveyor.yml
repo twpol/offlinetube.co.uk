@@ -4,6 +4,7 @@ init:
 install:
 - cmd: >-
     yarn install --frozen-lockfile
+
     bower install
 build_script:
 - cmd: grunt build
