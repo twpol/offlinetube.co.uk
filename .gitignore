@@ -3,9 +3,9 @@
 /src/css/*.css
 /src/html/*.html
 /src/js/data/*.js
-/src/json/data/*.json
 !/src/js/data/index.js
 /src/js/templates.js
+/src/json/data/*.json
 /css
 /png
 /svg

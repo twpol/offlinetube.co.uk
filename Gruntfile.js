@@ -178,10 +178,24 @@ module.exports = function (grunt) {
 		},
 		clean: {
 			dev: {
-				src: ['src/html/*.html', 'src/css/index.css', 'src/js/data/*.js', '!src/js/data/index.js']
+				src: [
+					'src/css/*.css',
+					'src/html/*.html',
+					'src/js/data/*.js',
+					'!src/js/data/index.js',
+					'src/json/data/*.json',
+				]
 			},
 			live: {
-				src: ['src/js/templates.js', 'css', 'png', 'svg', '*.html', 'index.*', 'appcache.*']
+				src: [
+					'src/js/templates.js',
+					'css',
+					'png',
+					'svg',
+					'*.html',
+					'index.*',
+					'appcache.*',
+				]
 			}
 		}
 	});
