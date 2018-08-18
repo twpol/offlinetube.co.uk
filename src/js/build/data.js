@@ -166,13 +166,18 @@ fs.readdir(inputDir).then(function (networkKeys) {
 		}).then(function (network) {
 			var networkFileName = outputDirJson + networkKey + '.json';
 			var networkData = JSON.stringify(network, null, '\t');
-			fs.writeFile(networkFileName, networkData);
-			console.log('%s: Written %d bytes to %s.', networkKey, networkData.length, networkFileName);
-
-			networkFileName = outputDirJs + networkKey + '.js';
-			networkData = 'define(' + JSON.stringify(network, null, '\t') + ');';
-			fs.writeFile(networkFileName, networkData);
-			console.log('%s: Written %d bytes to %s.', networkKey, networkData.length, networkFileName);
+			var networkFileNameJs = outputDirJs + networkKey + '.js';
+			var networkDataJs = 'define(' + JSON.stringify(network, null, '\t') + ');';
+			return Promise.all([
+				fs.writeFile(networkFileName, networkData)
+					.then(function () {
+						console.log('%s: Written %d bytes to %s.', networkKey, networkData.length, networkFileName);
+					}),
+				fs.writeFile(networkFileNameJs, networkDataJs)
+					.then(function () {
+						console.log('%s: Written %d bytes to %s.', networkKey, networkDataJs.length, networkFileNameJs);
+					}),
+			]);
 		});
 	}));
 });
