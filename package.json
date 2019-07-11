@@ -16,7 +16,7 @@
     "grunt-manifest": "https://github.com/gunta/grunt-manifest.git#0e5c181ea8656e290c2dfd38fcbc30d9849d8e37",
     "gruntify-eslint": "5.0.0",
     "load-grunt-tasks": "5.0.0",
-    "lodash": "4.17.13",
+    "lodash": "4.17.14",
     "promised-io": "0.3.5"
   }
 }
