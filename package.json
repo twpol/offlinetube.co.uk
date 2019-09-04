@@ -5,7 +5,7 @@
     "eslint": "6.3.0",
     "grunt": "1.0.4",
     "grunt-contrib-clean": "2.0.0",
-    "grunt-contrib-connect": "2.0.0",
+    "grunt-contrib-connect": "2.1.0",
     "grunt-contrib-copy": "1.0.0",
     "grunt-contrib-jade": "1.0.0",
     "grunt-contrib-less": "2.0.0",
