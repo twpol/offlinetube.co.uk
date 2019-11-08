@@ -1329,9 +1329,9 @@ grunt-execute@0.2.2:
   version "0.2.2"
   resolved "https://registry.yarnpkg.com/grunt-execute/-/grunt-execute-0.2.2.tgz#4e945fe57959cc0de7799083b6b42aed9616350a"
 
-grunt-html2js@0.6.0:
-  version "0.6.0"
-  resolved "https://registry.yarnpkg.com/grunt-html2js/-/grunt-html2js-0.6.0.tgz#afb9c4b56f7453961f82b5673a51a1aad41e0c21"
+grunt-html2js@0.7.1:
+  version "0.7.1"
+  resolved "https://registry.yarnpkg.com/grunt-html2js/-/grunt-html2js-0.7.1.tgz#6a816644fbdd76cce44450233ef595d7e22f499e"
   dependencies:
     chokidar "^2"
     html-minifier "^3"
