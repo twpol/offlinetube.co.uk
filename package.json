@@ -2,6 +2,7 @@
   "name": "offlinetube",
   "version": "0.0.0",
   "devDependencies": {
+    "bower": "^1.8.8",
     "eslint": "6.8.0",
     "grunt": "1.0.4",
     "grunt-contrib-clean": "2.0.0",
@@ -16,7 +17,6 @@
     "grunt-manifest": "https://github.com/gunta/grunt-manifest.git#0e5c181ea8656e290c2dfd38fcbc30d9849d8e37",
     "gruntify-eslint": "5.0.0",
     "load-grunt-tasks": "5.1.0",
-    "lodash": "4.17.15",
-    "promised-io": "0.3.5"
+    "lodash": "4.17.15"
   }
 }

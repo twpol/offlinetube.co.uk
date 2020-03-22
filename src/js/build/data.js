@@ -2,7 +2,7 @@
 /* eslint-disable no-console */
 /* global Promise: false */
 var _ = require('lodash'),
-	fs = require('promised-io/fs');
+	fs = require('fs').promises;
 
 var inputDir = 'src/data/';
 var outputDirJson = 'src/json/data/';
