@@ -13,7 +13,7 @@
     "grunt-contrib-requirejs": "1.0.0",
     "grunt-contrib-watch": "1.1.0",
     "grunt-execute": "0.2.2",
-    "grunt-html2js": "0.8.0",
+    "grunt-html2js": "0.9.0",
     "grunt-manifest": "https://github.com/gunta/grunt-manifest.git#0e5c181ea8656e290c2dfd38fcbc30d9849d8e37",
     "gruntify-eslint": "5.0.0",
     "load-grunt-tasks": "5.1.0",
